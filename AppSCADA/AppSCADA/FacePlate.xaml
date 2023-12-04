@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="AppSCADA.FacePlate">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Text="{Binding Motor.Name}"
+                   Grid.Row="0"></Label>
+            <StackLayout Grid.Row="1">
+                <Picker Title="Select a mode"
+                        SelectedItem="{Binding SelectedColorName, Mode=TwoWay}"
+                        SelectedIndex="{Binding Motor.Mode}"
+                        >
+                    <Picker.Items>
+                        <x:String>MAN</x:String>
+                        <x:String>AUTO</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Button Text="Start"  
+                        WidthRequest="100"
+                        HorizontalOptions="Center">
+                    <Button.Behaviors>
+                        <behavior:EventToCommandBehavior EventName="Pressed"
+                                                     Command="{Binding SetStartCommand}" />
+                        <behavior:EventToCommandBehavior EventName="Released"
+                                                     Command="{Binding ResetStartCommand}" />
+                    </Button.Behaviors>
+                </Button>
+                <Button Text="Stop"
+                        WidthRequest="100"
+                        HorizontalOptions="Center">
+                    <Button.Behaviors>
+                        <behavior:EventToCommandBehavior EventName="Pressed"
+                                                         Command="{Binding SetStopCommand}" />
+                        <behavior:EventToCommandBehavior EventName="Released"
+                                                         Command="{Binding ResetStopCommand}" />
+                    </Button.Behaviors>
+                </Button>
+                <Button Text="Reset"
+                        WidthRequest="100"
+                        HorizontalOptions="Center">
+                    <Button.Behaviors>
+                        <behavior:EventToCommandBehavior EventName="Pressed"
+                                                         Command="{Binding SetResetCommand}" />
+                        <behavior:EventToCommandBehavior EventName="Released"
+                                                         Command="{Binding ResetResetCommand}" />
+                    </Button.Behaviors>
+                </Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

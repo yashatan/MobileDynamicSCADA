@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:localVM="clr-namespace:AppSCADA.ViewModel"
+             xmlns:local="clr-namespace:AppSCADA"
+             x:Class="AppSCADA.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <localVM:MotorImageConverter x:Key="MotorImageConverter"></localVM:MotorImageConverter>
+            <localVM:LevelProgressConverter x:Key="LevelProgressConverter"></localVM:LevelProgressConverter>
+            <localVM:StatusConverter x:Key="StatusConverter"></localVM:StatusConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView Orientation="Both" x:Name="scrollViewMain" >
+        <AbsoluteLayout x:Name="MainScreen" >
+            <!--<Image
+                x:Name="testimage"
+                HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="35"
+                   WidthRequest="100"
+                   Aspect="AspectFill"
+                   Source="{local:ImageResource AppSCADA.image.pipe.png}"
+
+                   AbsoluteLayout.LayoutBounds="98, 350"></Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="25"
+                   Aspect="AspectFill"
+                   Source="{local:ImageResource AppSCADA.image.pipe.png}"
+                   AbsoluteLayout.LayoutBounds="98, 530, 100, 25"></Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="25"
+                   Aspect="AspectFill"
+                   Source="{local:ImageResource AppSCADA.image.pipe.png}"
+                   AbsoluteLayout.LayoutBounds="258, 530, 70, 25"></Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="70"
+                   WidthRequest="90"
+                   Aspect="Fill"
+                   Source="{Binding MyDevice.Motor_1.Runfeedback, Converter={StaticResource MotorImageConverter}}"
+                   AbsoluteLayout.LayoutBounds="20, 500">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenFacePlateCommand}"
+                                          CommandParameter="{Binding MyDevice.Motor_1}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="70"
+                   WidthRequest="90"
+                   Aspect="Fill"
+                   Source="{Binding MyDevice.Motor_3.Runfeedback, Converter={StaticResource MotorImageConverter}}"
+                   AbsoluteLayout.LayoutBounds="290, 500">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenFacePlateCommand}"
+                                          CommandParameter="{Binding MyDevice.Motor_3}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="70"
+                   WidthRequest="90"
+                   Aspect="Fill"
+                   Source="{Binding MyDevice.Motor_2.Runfeedback, Converter={StaticResource MotorImageConverter}}"
+                   AbsoluteLayout.LayoutBounds="20, 320">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenFacePlateCommand}"
+                                          CommandParameter="{Binding MyDevice.Motor_2}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Source="{Binding MyDevice.LowStatus, Converter={StaticResource StatusConverter}}"
+                   AbsoluteLayout.LayoutBounds="270, 480, 40, 40"></Image>
+            <Image HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Source="{Binding MyDevice.HighStatus, Converter={StaticResource StatusConverter}}"
+                   AbsoluteLayout.LayoutBounds="270, 270, 40, 40"></Image>
+            <Image Source="{local:ImageResource AppSCADA.image.Tank.png}"
+                   VerticalOptions="Fill"
+                   HorizontalOptions="Fill"
+                   AbsoluteLayout.LayoutBounds="80, 230, 240, 330"></Image>
+            <ProgressBar Rotation="270"
+                         HeightRequest="100"
+                         WidthRequest="100"
+                         ScaleY="20"
+                         ScaleX="1.3"
+                         Progress="{Binding MyDevice.Level, Converter={StaticResource LevelProgressConverter}}"
+                         ProgressColor="ForestGreen"
+                         AbsoluteLayout.LayoutBounds="105, 30, 200, 800"></ProgressBar>
+            <Button Text="Start"
+                    AbsoluteLayout.LayoutBounds="150, 90, 100, 50"></Button>
+            <Button Text="Stop"
+                    AbsoluteLayout.LayoutBounds="270, 90, 100, 50"></Button>-->
+            <!--<Image Source="{local:ImageResource AppSCADA.image.Tank.png}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   HeightRequest="780"
+                   WidthRequest="384"
+                   Aspect="Fill"
+                   AbsoluteLayout.LayoutBounds="0, 0"></Image>-->
+            <!--<Button Text="Stop"
+                    AbsoluteLayout.LayoutBounds="270, 90, 100, 50" Clicked="Button_Clicked"></Button>-->
+        </AbsoluteLayout>
+    </ScrollView>
+
+
+</ContentPage>

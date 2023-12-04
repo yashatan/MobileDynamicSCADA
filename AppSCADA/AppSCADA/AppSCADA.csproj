@@ -1,0 +1,159 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="image\agitators.rar" />
+    <None Remove="image\agitator_1.gif" />
+    <None Remove="image\agitator_2.gif" />
+    <None Remove="image\agitator_3.gif" />
+    <None Remove="image\agitator_4.gif" />
+    <None Remove="image\button_red_off.wmf" />
+    <None Remove="image\button_red_on.wmf" />
+    <None Remove="image\Direction1.png" />
+    <None Remove="image\Direction2.png" />
+    <None Remove="image\GreenCircle.gif" />
+    <None Remove="image\GreyCircle.png" />
+    <None Remove="image\pipe.png" />
+    <None Remove="image\pump_side_green.gif" />
+    <None Remove="image\pump_side_grey.gif" />
+    <None Remove="image\RedCircle.png" />
+    <None Remove="image\screw_1.gif" />
+    <None Remove="image\screw_2.gif" />
+    <None Remove="image\screw_3.gif" />
+    <None Remove="image\screw_4.gif" />
+    <None Remove="image\Tank.png" />
+    <None Remove="image\test.jpg" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <EmbeddedResource Include="controldata.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\agitators.rar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\agitator_1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\agitator_2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\agitator_3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\agitator_4.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\button_red_off.wmf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\button_red_on.wmf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\Direction1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\Direction2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\GreenCircle.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\GreyCircle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\pipe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\pump_side_green.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\pump_side_grey.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\RedCircle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\screw_1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\screw_2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\screw_3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\screw_4.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\Tank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="image\test.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.Forms" Version="8.1.97" />
+    <PackageReference Include="S7netplus" Version="0.20.0" />
+    <PackageReference Include="System.IO.Ports" Version="4.4.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="EasyModbus">
+      <HintPath>EasyModbus.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>E:\VisualStudio2022\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="image\agitators.rar" />
+    <Resource Include="image\agitator_1.gif" />
+    <Resource Include="image\agitator_2.gif" />
+    <Resource Include="image\agitator_3.gif" />
+    <Resource Include="image\agitator_4.gif" />
+    <Resource Include="image\button_red_off.wmf" />
+    <Resource Include="image\button_red_on.wmf" />
+    <Resource Include="image\Direction1.png" />
+    <Resource Include="image\Direction2.png" />
+    <Resource Include="image\GreenCircle.gif" />
+    <Resource Include="image\GreyCircle.png" />
+    <Resource Include="image\pump_side_green.gif" />
+    <Resource Include="image\pump_side_grey.gif" />
+    <Resource Include="image\RedCircle.png" />
+    <Resource Include="image\screw_1.gif" />
+    <Resource Include="image\screw_2.gif" />
+    <Resource Include="image\screw_3.gif" />
+    <Resource Include="image\screw_4.gif" />
+    <Resource Include="image\Tank.png" />
+    <Resource Include="image\test.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="FacePlate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
