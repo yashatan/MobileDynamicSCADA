@@ -161,7 +161,7 @@ namespace AppSCADA.Model
                 Console.WriteLine($"Connect to the PLC {Name} {IP} succesfully");
                 UpdateTimer = new System.Timers.Timer(500);
                 UpdateTimer.Elapsed += UpdateTags;
-                //UpdateTimer.Start();
+                UpdateTimer.Start();
             }
             catch (Exception ex)
             {

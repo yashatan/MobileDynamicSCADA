@@ -106,6 +106,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.3" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Prism.Forms" Version="8.1.97" />
     <PackageReference Include="S7netplus" Version="0.20.0" />

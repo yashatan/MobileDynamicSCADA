@@ -11,8 +11,28 @@
             <localVM:StatusConverter x:Key="StatusConverter"></localVM:StatusConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ScrollView Orientation="Both" x:Name="scrollViewMain" >
-        <AbsoluteLayout x:Name="MainScreen" >
+        <AbsoluteLayout x:Name="MainScreen">
+            <Entry Text="http://192.168.1.77:8088/SCADA/signalr"
+                   x:Name="IPAddress"
+                   WidthRequest="100"
+                   AbsoluteLayout.LayoutBounds="150, 0"
+                   >
+                
+            </Entry>
+            <Button x:Name="Connect_button"
+                    Clicked="Connect_button_Clicked"
+                    >
+                
+            </Button>
+            <ActivityIndicator Color="Blue"
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"
+                               IsRunning="True"
+                               x:Name="LoadingCircle"
+                               >
+                
+            </ActivityIndicator>
             <!--<Image
                 x:Name="testimage"
                 HorizontalOptions="Start"

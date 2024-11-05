@@ -8,29 +8,14 @@ namespace AppSCADA.Utility
 {
     public class AnimationSense
     {
-        private string _Tagname;
+        private TagInfo _Tag;
 
-        public string Tagname
+        public virtual TagInfo Tag
         {
-            get { return _Tagname; }
-            set { _Tagname = value; }
-        }
-        private string _TextWhenTagInRange;
-
-        public string TextWhenTagInRange
-        {
-            get { return _TextWhenTagInRange; }
-            set { _TextWhenTagInRange = value; }
+            get { return _Tag; }
+            set { _Tag = value; }
         }
 
-        public enum PropertyType
-        {
-            emIsVisible,
-            emBackgroundcColor,
-            emHeight,
-            emWidth,
-            emText
-        }
         private PropertyType _PropertyNeedChange;
 
         public PropertyType PropertyNeedChange
@@ -55,7 +40,7 @@ namespace AppSCADA.Utility
             set { _Tagvaluemax = value; }
         }
 
-        private ColorRGB _ColorWhenTagInRange;
+        private ColorRGB _ColorWhenTagInRange = new ColorRGB();
 
         public ColorRGB ColorWhenTagInRange
         {
@@ -71,13 +56,6 @@ namespace AppSCADA.Utility
             set { _PropertyBoolValueWhenTagInRange = value; }
         }
 
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
 
         private int _PropertyValueWhenTagInRange;
 
@@ -87,6 +65,35 @@ namespace AppSCADA.Utility
             set { _PropertyValueWhenTagInRange = value; }
         }
 
+        private string _TextWhenTagInRange = "";
+
+        public string TextWhenTagInRange
+        {
+            get { return _TextWhenTagInRange; }
+            set { _TextWhenTagInRange = value; }
+        }
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public enum PropertyType
+        {
+            emIsVisible,
+            emBackgroundColor,
+            emHeight,
+            emWidth,
+            emText
+        }
+        public AnimationSense()
+        {
+
+
+
+        }
 
     }
 }

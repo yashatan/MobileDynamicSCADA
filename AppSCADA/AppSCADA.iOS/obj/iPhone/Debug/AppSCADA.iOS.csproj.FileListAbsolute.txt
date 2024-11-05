@@ -96,9 +96,12 @@ D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\AppSCAD
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\S7.Net.dll
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\EasyModbus.dll
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\AppSCADA.pdb
-D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\obj\iPhone\Debug\AppSCADA.iOS.csproj.CopyComplete
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\obj\iPhone\Debug\AppSCADA.iOS.exe
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\obj\iPhone\Debug\AppSCADA.iOS.pdb
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Mono.Android.dll
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Mono.Android.pdb
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Mono.Android.xml
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Microsoft.AspNet.SignalR.Client.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Microsoft.AspNet.SignalR.Client.pdb
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Newtonsoft.Json.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\obj\iPhone\Debug\AppSCADA.DAB7644D.Up2Date

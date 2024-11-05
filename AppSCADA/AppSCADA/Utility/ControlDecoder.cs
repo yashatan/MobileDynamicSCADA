@@ -76,7 +76,7 @@ namespace AppSCADA.Utility
                 (control as Label).TextColor = Color.FromRgb(data.ForegroundColor.R, data.ForegroundColor.G, data.ForegroundColor.B);
                 (control as Label).Text = data.LabelText;
                 (control as Label).FontSize = data.FontSize;
-                (control as Label).BackgroundColor = Color.FromRgb(data.BackgroundColor.R, data.BackgroundColor.G, data.BackgroundColor.B);
+               // (control as Label).BackgroundColor = Color.FromRgb(data.BackgroundColor.R, data.BackgroundColor.G, data.BackgroundColor.B);
             }
 
             if (control.GetType() == typeof(Entry))

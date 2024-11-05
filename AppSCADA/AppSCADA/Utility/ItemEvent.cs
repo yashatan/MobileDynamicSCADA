@@ -32,7 +32,7 @@ namespace AppSCADA.Utility
         }
         public ItemEventType EventType { get; set; }
         public ItemActiontype ActionType { get; set; }
-        public string TagName { get; set; }
+        public virtual TagInfo Tag { get; set; }
 
     }
 }
