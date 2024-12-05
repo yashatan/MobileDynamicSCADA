@@ -13,27 +13,26 @@
     </ContentPage.Resources>
     
     <ScrollView Orientation="Both" x:Name="scrollViewMain" >
-        <AbsoluteLayout x:Name="MainScreen">
-            <Entry Text="http://192.168.1.77:8088/SCADA/signalr"
+        <StackLayout>
+            <Entry Text="http://192.168.1.31:8088/SCADA/signalr"
                    x:Name="IPAddress"
                    WidthRequest="100"
-                   AbsoluteLayout.LayoutBounds="150, 0"
-                   >
-                
-            </Entry>
+                   AbsoluteLayout.LayoutBounds="150, 0"></Entry>
             <Button x:Name="Connect_button"
-                    Clicked="Connect_button_Clicked"
-                    >
-                
-            </Button>
-            <ActivityIndicator Color="Blue"
-                               AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"
-                               IsRunning="True"
-                               x:Name="LoadingCircle"
-                               >
-                
-            </ActivityIndicator>
-            <!--<Image
+                    AbsoluteLayout.LayoutBounds="250, 0"
+                    Text="Connect"
+                    Clicked="Connect_button_Clicked"></Button>
+            <Button x:Name="Alarm_button"
+                    Text="Alarms"
+                    Clicked="Alarm_button_Clicked"></Button>
+            <AbsoluteLayout x:Name="MainScreen">
+
+                <ActivityIndicator Color="Blue"
+                                   AbsoluteLayout.LayoutBounds="0.5,0.5,200,200"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   IsRunning="False"
+                                   x:Name="LoadingCircle"></ActivityIndicator>
+                <!--<Image
                 x:Name="testimage"
                 HorizontalOptions="Start"
                    VerticalOptions="Start"
@@ -115,16 +114,18 @@
                     AbsoluteLayout.LayoutBounds="150, 90, 100, 50"></Button>
             <Button Text="Stop"
                     AbsoluteLayout.LayoutBounds="270, 90, 100, 50"></Button>-->
-            <!--<Image Source="{local:ImageResource AppSCADA.image.Tank.png}"
+                <!--<Image Source="{local:ImageResource AppSCADA.image.Tank.png}"
                    HorizontalOptions="Start"
                    VerticalOptions="Start"
                    HeightRequest="780"
                    WidthRequest="384"
                    Aspect="Fill"
                    AbsoluteLayout.LayoutBounds="0, 0"></Image>-->
-            <!--<Button Text="Stop"
+                <!--<Button Text="Stop"
                     AbsoluteLayout.LayoutBounds="270, 90, 100, 50" Clicked="Button_Clicked"></Button>-->
-        </AbsoluteLayout>
+            </AbsoluteLayout>
+        </StackLayout>
+
     </ScrollView>
 
 

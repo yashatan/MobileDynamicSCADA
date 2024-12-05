@@ -1,2 +1,2 @@
-AdbTarget=-s RF8T40H2FQN
+AdbTarget=-s 192.168.1.30:5555
 AdbOptions=

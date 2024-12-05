@@ -105,3 +105,16 @@ D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Microso
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Microsoft.AspNet.SignalR.Client.pdb
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\Newtonsoft.Json.dll
 D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\obj\iPhone\Debug\AppSCADA.DAB7644D.Up2Date
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\HarfBuzzSharp.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\HarfBuzzSharp.pdb
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\LiveChartsCore.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\LiveChartsCore.SkiaSharpView.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\LiveChartsCore.SkiaSharpView.XamarinForms.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.pdb
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.HarfBuzz.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.HarfBuzz.pdb
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.Views.iOS.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.Views.iOS.pdb
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.Views.Forms.dll
+D:\CaoHoc\DeCuongLuanVan\AppSCADA\AppSCADA\AppSCADA.iOS\bin\iPhone\Debug\SkiaSharp.Views.Forms.pdb

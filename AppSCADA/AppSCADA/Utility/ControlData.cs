@@ -31,11 +31,22 @@ namespace AppSCADA.Utility
     public class ColorRGB
     {        //
 
-        public int B { get; set; }
+        public byte B { get; set; }
 
-        public int G { get; set; }
+        public byte G { get; set; }
 
-        public int R { get; set; }
-
+        public byte R { get; set; }
+        public ColorRGB()
+        {
+            R = 255;
+            G = 255;
+            B = 255;
+        }
+        public ColorRGB(Color color)
+        {
+            R = (byte)color.R;
+            G = (byte)color.G;
+            B = (byte)color.B;
+        }
     }
 }

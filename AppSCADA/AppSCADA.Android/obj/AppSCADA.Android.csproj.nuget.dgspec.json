@@ -47,6 +47,10 @@
       "frameworks": {
         "monoandroid11.0": {
           "dependencies": {
+            "LiveChartsCore.SkiaSharpView.XamarinForms": {
+              "target": "Package",
+              "version": "[2.0.0-rc4.5, )"
+            },
             "Microsoft.AspNet.SignalR.Client": {
               "target": "Package",
               "version": "[2.4.3, )"
@@ -69,7 +73,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.5, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
@@ -129,6 +133,10 @@
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
+            "LiveChartsCore.SkiaSharpView.XamarinForms": {
+              "target": "Package",
+              "version": "[2.0.0-rc4.5, )"
+            },
             "Microsoft.AspNet.SignalR.Client": {
               "target": "Package",
               "version": "[2.4.3, )"
@@ -138,6 +146,10 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Prism.Core": {
               "target": "Package",
@@ -157,7 +169,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.5, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

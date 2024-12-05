@@ -6,7 +6,6 @@ namespace AppSCADA
 {
     public class AlarmPoint
     {
-        private static int currentId = 0;
         private int _Id;
 
         public int Id

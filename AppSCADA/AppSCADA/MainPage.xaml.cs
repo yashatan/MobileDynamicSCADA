@@ -11,7 +11,6 @@ using System.Reflection;
 using System.IO;
 using AppSCADA.Utility;
 using System.Threading;
-using System.Linq;
 using System.Timers;
 using S7.Net;
 using Xamarin.Forms.Shapes;
@@ -24,6 +23,8 @@ using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Android.Nfc;
 using static Android.Renderscripts.Sampler;
+using System.Collections.ObjectModel;
+using static Android.Resource;
 
 namespace AppSCADA
 {
@@ -34,30 +35,33 @@ namespace AppSCADA
         //Proxy object for a hub hosted on the SignalR server
         IHubProxy _hubProxy;
         List<ControlData> controlDatas;
-        List<AlarmPoint> alarmPoints;
+        List<TrendViewSetting> trendViewSettings;
+        ObservableCollection<AlarmPoint> alarmPoints;
+        ObservableCollection<TrendPoint> trendPoints;
         Dictionary<ControlData, View> controlDataDictionary;
         Plc thePLC;
         string IP = "192.168.0.201";
         System.Timers.Timer UpdateTimer;
-        private volatile object _locker = new object();
+        Page1 alarmPage;
         public MainPage()
         {
             InitializeComponent();
-            this.Appearing += MainPage_AppearingAsync;//Load file and start PLC after 
-            alarmPoints = new List<AlarmPoint>();
+            //this.Appearing += MainPage_AppearingAsync;//Load file and start PLC after 
+            alarmPoints = new ObservableCollection<AlarmPoint>();
+            trendPoints = new ObservableCollection<TrendPoint>();
         }
 
-        private async void MainPage_AppearingAsync(object sender, EventArgs e)
-        {
-            //var fileResult = await FilePicker.PickAsync();
-            //if (fileResult != null)
-            //{
-            //    var filestream = await fileResult.OpenReadAsync();
-            //    controlDatas = DeserializeControlData(filestream);
-            //}
+        //private async void MainPage_AppearingAsync(object sender, EventArgs e)
+        //{
+        //    //var fileResult = await FilePicker.PickAsync();
+        //    //if (fileResult != null)
+        //    //{
+        //    //    var filestream = await fileResult.OpenReadAsync();
+        //    //    controlDatas = DeserializeControlData(filestream);
+        //    //}
 
-            //  AddControlFromControlDatas();
-        }
+        //    //  AddControlFromControlDatas();
+        //}
 
         private void AddControlFromControlDatas()
         {
@@ -65,18 +69,17 @@ namespace AppSCADA
             foreach (var controlData in controlDatas)
             {
                 var control = ControlDecoder.ConvertToControl(controlData);
-                UpdateMainScreenSize(controlData);
+
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     try
                     {
+                        UpdateMainScreenSize(controlData);
                         MainScreen.Children.Add(control, new Point(controlData.X, controlData.Y));
-                        //action();
-                        //tcs.SetResult(null);
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        //    tcs.SetException(e);
+                       // tcs.SetException(e);
                     }
                 });
 
@@ -185,19 +188,19 @@ namespace AppSCADA
         {
             if (item.GetType().IsSubclassOf(typeof(Shape)))
             {
-                (item as Shape).Fill = new SolidColorBrush(Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B));
+                (item as Shape).Fill = new SolidColorBrush(Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B));
             }
             else if (item.GetType() == (typeof(Button)))
             {
-                (item as Button).BackgroundColor = Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+                (item as Button).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
             }
             else if (item.GetType() == (typeof(Entry)))
             {
-                (item as Entry).BackgroundColor = Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+                (item as Entry).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
             }
             else if (item.GetType() == (typeof(Label)))
             {
-                (item as Label).BackgroundColor = Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+                (item as Label).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
             }
         }
 
@@ -209,21 +212,21 @@ namespace AppSCADA
             }
         }
 
-        int ReadPLCTag(string tag)
-        {
-            object ob1 = thePLC.Read(tag);
-            var result = Convert.ToInt16(ob1);
-            return result;
-        }
+        //int ReadPLCTag(string tag)
+        //{
+        //    object ob1 = thePLC.Read(tag);
+        //    var result = Convert.ToInt16(ob1);
+        //    return result;
+        //}
 
-        void WritePLCTag(string tag, object value)
-        {
-            lock (_locker)
-            {
-                thePLC.Write(tag, value);
-            }
+        //void WritePLCTag(string tag, object value)
+        //{
+        //    lock (_locker)
+        //    {
+        //        thePLC.Write(tag, value);
+        //    }
 
-        }
+        //}
         public static List<ControlData> DeserializeControlData(Stream filePath)
         {
             List<ControlData> listControls;
@@ -262,18 +265,12 @@ namespace AppSCADA
             var _signalRConnection = new HubConnection(url);
             _signalRConnection.StateChanged += HubConnection_StateChanged;
 
-            //Get a proxy object that will be used to interact with the specific hub on the server
-            //Ther may be many hubs hosted on the server, so provide the type name for the hub
             _hubProxy = _signalRConnection.CreateHubProxy("SCADAHub");
-
-            //Reigster to the "AddMessage" callback method of the hub
-            //This method is invoked by the hub
-            // await Console.Out.WriteLineAsync();
             _hubProxy.On<int, int>("UpdateTags", (tagid, value) => UpdateTagsSignalR(tagid, value));
             _hubProxy.On<SCADAAppConfiguration>("DownloadSCADAConfig", (config) => GetSCADAConfig(config));
             _hubProxy.On<AlarmPoint>("UpdateAlarmPoint", (alarmPoint) => ReceiveAlarmPointSignalR(alarmPoint));
-            //_hubProxy.On<int, int>("GetData", (tagid, value) => UpdateTagsSignalR(tagid, value));
-            //_hubProxy.On<TagInfo, ConnectDevice>("SendTagInfo", (tagInfo, device) => TestFunction(tagInfo, device));
+            _hubProxy.On<int>("ACKAlarmPoint", (alarmPointId) => ReceiveACKAlarmPointSignalR(alarmPointId));
+            _hubProxy.On<TrendPoint>("WriteTrendPoint", (trendPoint) => ReceiveTrendPointSignalR(trendPoint));
 
             //btnConnect.Enabled = false;
 
@@ -282,12 +279,24 @@ namespace AppSCADA
                 //Connect to the server
                 await _signalRConnection.Start();
                 await _hubProxy.Invoke("SetUserName", "test");
+                Connect_button.Text = "Disconnect";
             }
             catch (Exception ex)
             {
                 // writeToLog($"Error:{ex.Message}");
                 // btnConnect.Enabled = true;
             }
+        }
+
+        private void ReceiveTrendPointSignalR(TrendPoint trendPoint)
+        {
+            trendPoints.Add(trendPoint);
+            alarmPage.AddNewTrendPoint(trendPoint);
+        }
+
+        private void ReceiveACKAlarmPointSignalR(int alarmPointId)
+        {
+            alarmPoints.Remove(alarmPoints.FirstOrDefault(ap => ap.Id == alarmPointId));
         }
 
         private void ReceiveAlarmPointSignalR(AlarmPoint alarmPoint)
@@ -298,12 +307,32 @@ namespace AppSCADA
         private async void AckAlarmPointSignalR(int alarmId)
         {
             await _hubProxy.Invoke("AckAlarmPoint", alarmId);
+            alarmPoints.Remove(alarmPoints.FirstOrDefault(ap => ap.Id == alarmId));
         }
 
         private void GetSCADAConfig(SCADAAppConfiguration config)
         {
-            controlDatas = config.ControlDatas;
-            AddControlFromControlDatas();
+            if (config != null)
+            {
+                if (config.ControlDatas != null)
+                {
+                    controlDatas = config.ControlDatas;
+                }
+                if (config.CurrentAlarmPoints != null)
+                {
+                    foreach (var alarmPoint in config.CurrentAlarmPoints)
+                    {
+                        alarmPoints.Add(alarmPoint);
+                    }
+                }
+                if (config.TrendViewSettings != null)
+                {
+                    trendViewSettings = config.TrendViewSettings;
+                }
+                
+                AddControlFromControlDatas();
+            }
+
         }
 
         private void UpdateTagsSignalR(int tagid, int value)
@@ -383,7 +412,21 @@ namespace AppSCADA
 
         private async void Connect_button_Clicked(object sender, EventArgs e)
         {
+            LoadingCircle.IsRunning = true;
             await connectAsync();
+        }
+
+        private async void Alarm_button_Clicked(object sender, EventArgs e)
+        {
+            //await Navigation.PushAsync(new Page1());
+            alarmPage = new Page1(trendViewSettings);
+            alarmPage.AlarmACK += AlarmPage_AlarmACK;
+            await Navigation.PushAsync(alarmPage);
+        }
+
+        private void AlarmPage_AlarmACK(object sender, AlarmPointACKEventArgs e)
+        {
+            AckAlarmPointSignalR(e.AlarmPoint.Id);
         }
     }
 }

@@ -24,12 +24,12 @@ public final class R {
 		public static final int fontStyle = 0x7f030126;
 		public static final int fontVariationSettings = 0x7f030127;
 		public static final int fontWeight = 0x7f030128;
-		public static final int layoutManager = 0x7f03016d;
-		public static final int recyclerViewStyle = 0x7f0301d5;
-		public static final int reverseLayout = 0x7f0301d6;
-		public static final int spanCount = 0x7f0301f5;
-		public static final int stackFromEnd = 0x7f0301fb;
-		public static final int ttcIndex = 0x7f03027e;
+		public static final int layoutManager = 0x7f03016e;
+		public static final int recyclerViewStyle = 0x7f0301d6;
+		public static final int reverseLayout = 0x7f0301d7;
+		public static final int spanCount = 0x7f0301f6;
+		public static final int stackFromEnd = 0x7f0301fc;
+		public static final int ttcIndex = 0x7f03027f;
 	}
 	public static final class color {
 		public static final int notification_action_color_filter = 0x7f0500b5;
@@ -187,7 +187,7 @@ public final class R {
 		public static final int FontFamily_fontProviderFetchTimeout = 3;
 		public static final int FontFamily_fontProviderPackage = 4;
 		public static final int FontFamily_fontProviderQuery = 5;
-		public static final int[] FontFamilyFont = new int[] { 0x01010532, 0x01010533, 0x0101053f, 0x0101056f, 0x01010570, 0x7f03011e, 0x7f030126, 0x7f030127, 0x7f030128, 0x7f03027e };
+		public static final int[] FontFamilyFont = new int[] { 0x01010532, 0x01010533, 0x0101053f, 0x0101056f, 0x01010570, 0x7f03011e, 0x7f030126, 0x7f030127, 0x7f030128, 0x7f03027f };
 		public static final int FontFamilyFont_android_font = 0;
 		public static final int FontFamilyFont_android_fontStyle = 2;
 		public static final int FontFamilyFont_android_fontVariationSettings = 4;
@@ -214,7 +214,7 @@ public final class R {
 		public static final int[] GradientColorItem = new int[] { 0x010101a5, 0x01010514 };
 		public static final int GradientColorItem_android_color = 0;
 		public static final int GradientColorItem_android_offset = 1;
-		public static final int[] RecyclerView = new int[] { 0x010100c4, 0x010100eb, 0x010100f1, 0x7f030117, 0x7f030118, 0x7f030119, 0x7f03011a, 0x7f03011b, 0x7f03016d, 0x7f0301d6, 0x7f0301f5, 0x7f0301fb };
+		public static final int[] RecyclerView = new int[] { 0x010100c4, 0x010100eb, 0x010100f1, 0x7f030117, 0x7f030118, 0x7f030119, 0x7f03011a, 0x7f03011b, 0x7f03016e, 0x7f0301d7, 0x7f0301f6, 0x7f0301fc };
 		public static final int RecyclerView_android_clipToPadding = 1;
 		public static final int RecyclerView_android_descendantFocusability = 2;
 		public static final int RecyclerView_android_orientation = 0;
