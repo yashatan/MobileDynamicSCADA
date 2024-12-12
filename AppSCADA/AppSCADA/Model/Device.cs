@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Timers;
 using System.Windows;
-using EasyModbus;
 using AppSCADA.Mvvm;
 using S7.Net;
 using System.Threading.Tasks;
@@ -44,7 +43,6 @@ namespace AppSCADA.Model
         public Motor Motor_2 { get => motor_2; set { motor_2 = value; OnPropertyChanged(); } }
         public Motor Motor_3 { get => motor_3; set { motor_3 = value; OnPropertyChanged(); } }
 
-        ModbusClient modbusClient;
 
         public Device(string name, string ip)
         {
@@ -94,22 +92,22 @@ namespace AppSCADA.Model
             //temp = ModbusReadRegister(114, 1);
             return temp;
         }
-        int ModbusReadRegister(int start_add, int quantity)
-        {
-            int[] temp;
-            temp = modbusClient.ReadHoldingRegisters(start_add, quantity);
-            return temp[0];
-        }
-        void ModbusReadClass(Motor motor_data, int start_add)
-        {
-            int[] value = modbusClient.ReadHoldingRegisters(start_add, 4);
-            motor_data.Mode = (ushort)value[0];
-            motor_data.Start = Convert.ToBoolean(value[1] & 0x1);
-            motor_data.Stop = Convert.ToBoolean(value[1] >> 8 & 0x1);//get 16 higher bit to get value of Stop
-            motor_data.Runfeedback = Convert.ToBoolean(value[2] & 0x1);
-            //motor_data.Reset = Convert.ToBoolean(value[2] >> 8 & 0x1);//get 16 higher bit to get value of Reset
-            motor_data.Fault = Convert.ToBoolean(value[3]);
-        }
+        //int ModbusReadRegister(int start_add, int quantity)
+        //{
+        //    int[] temp;
+        //    temp = modbusClient.ReadHoldingRegisters(start_add, quantity);
+        //    return temp[0];
+        //}
+        //void ModbusReadClass(Motor motor_data, int start_add)
+        //{
+        //    int[] value = modbusClient.ReadHoldingRegisters(start_add, 4);
+        //    motor_data.Mode = (ushort)value[0];
+        //    motor_data.Start = Convert.ToBoolean(value[1] & 0x1);
+        //    motor_data.Stop = Convert.ToBoolean(value[1] >> 8 & 0x1);//get 16 higher bit to get value of Stop
+        //    motor_data.Runfeedback = Convert.ToBoolean(value[2] & 0x1);
+        //    //motor_data.Reset = Convert.ToBoolean(value[2] >> 8 & 0x1);//get 16 higher bit to get value of Reset
+        //    motor_data.Fault = Convert.ToBoolean(value[3]);
+        //}
         private void UpdateMotor(Motor motor, Motor_Data motor_data)
         {
             motor.Start = motor_data.Start;
@@ -349,7 +347,7 @@ namespace AppSCADA.Model
         }
         void ModbusWriteRegister(int start_add, int value)
         {
-            modbusClient.WriteSingleRegister(start_add, value);
+            //modbusClient.WriteSingleRegister(start_add, value);
         }
         public void readStatus()
         {

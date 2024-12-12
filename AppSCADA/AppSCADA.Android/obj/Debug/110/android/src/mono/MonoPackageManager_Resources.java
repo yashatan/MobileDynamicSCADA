@@ -3,7 +3,6 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "AppSCADA.Android.dll" comes first in this list. */
 		"AppSCADA.Android.dll",
-		"EasyModbus.dll",
 		"AppSCADA.dll",
 		"FormsViewGroup.dll",
 		"HarfBuzzSharp.dll",

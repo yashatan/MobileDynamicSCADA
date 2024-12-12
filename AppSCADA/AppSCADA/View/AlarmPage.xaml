@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSCADA.AlarmPage">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    x:Name="scrollViewMain">
+            <StackLayout x:Name="PageStackLayout">
+                <ListView x:Name="lvAlarm">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Id}"></Label>
+                                    <Label Text="{Binding Name}"></Label>
+                                    <Label Text="{Binding Text}"></Label>
+                                    <Label Text="{Binding TimeStamp}"></Label>
+                                    <Button Text="ACK"
+                                            Clicked="Button_Clicked"></Button>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView> 
+            </StackLayout>
+        </ScrollView>
+        <!--<Label 
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand" />
+        <ListView x:Name="lvAlarm">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Id}"></Label>
+                            <Label Text="{Binding Name}"></Label>
+                            <Label Text="{Binding Text}"></Label>
+                            <Label Text="{Binding TimeStamp}"></Label>
+                            <Button Text="ACK"
+                                    Clicked="Button_Clicked"></Button>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+    </ContentPage.Content>
+</ContentPage>

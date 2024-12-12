@@ -4300,24 +4300,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ASUS\\.nuget\\packages\\": {},
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CaoHoc\\DeCuongLuanVan\\AppSCADA\\AppSCADA\\AppSCADA.iOS\\AppSCADA.iOS.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Work\\MobileDynamicSCADA\\AppSCADA\\AppSCADA.iOS\\AppSCADA.iOS.csproj",
       "projectName": "AppSCADA.iOS",
-      "projectPath": "D:\\CaoHoc\\DeCuongLuanVan\\AppSCADA\\AppSCADA\\AppSCADA.iOS\\AppSCADA.iOS.csproj",
-      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "D:\\CaoHoc\\DeCuongLuanVan\\AppSCADA\\AppSCADA\\AppSCADA.iOS\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Work\\MobileDynamicSCADA\\AppSCADA\\AppSCADA.iOS\\AppSCADA.iOS.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Work\\MobileDynamicSCADA\\AppSCADA\\AppSCADA.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4331,8 +4332,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "D:\\CaoHoc\\DeCuongLuanVan\\AppSCADA\\AppSCADA\\AppSCADA\\AppSCADA.csproj": {
-              "projectPath": "D:\\CaoHoc\\DeCuongLuanVan\\AppSCADA\\AppSCADA\\AppSCADA\\AppSCADA.csproj"
+            "C:\\Users\\Admin\\Work\\MobileDynamicSCADA\\AppSCADA\\AppSCADA\\AppSCADA.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Work\\MobileDynamicSCADA\\AppSCADA\\AppSCADA\\AppSCADA.csproj"
             }
           }
         }
@@ -4340,7 +4341,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       }
     },
     "frameworks": {

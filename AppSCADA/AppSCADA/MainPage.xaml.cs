@@ -1,30 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using AppSCADA.ViewModel;
 using System.Text.Json;
-using System.Reflection;
 using System.IO;
 using AppSCADA.Utility;
-using System.Threading;
-using System.Timers;
 using S7.Net;
 using Xamarin.Forms.Shapes;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Essentials;
-using System.Text.Json.Serialization;
-using Android.Views.Accessibility;
-using static Android.Content.ClipData;
 using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
-using Android.Nfc;
-using static Android.Renderscripts.Sampler;
 using System.Collections.ObjectModel;
-using static Android.Resource;
+using HarfBuzzSharp;
 
 namespace AppSCADA
 {
@@ -42,7 +28,8 @@ namespace AppSCADA
         Plc thePLC;
         string IP = "192.168.0.201";
         System.Timers.Timer UpdateTimer;
-        Page1 alarmPage;
+        TrendPage trendPage;
+        AlarmPage alarmPage;
         public MainPage()
         {
             InitializeComponent();
@@ -79,7 +66,7 @@ namespace AppSCADA
                     }
                     catch
                     {
-                       // tcs.SetException(e);
+                        // tcs.SetException(e);
                     }
                 });
 
@@ -108,7 +95,15 @@ namespace AppSCADA
                 if (itemevent.EventType == ItemEvent.ItemEventType.emRelease)
                 {
                     //WritePLCTag(itemevent.TagName, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
-                    await WriteTagSignalR(itemevent.Tag.Id, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
+                    if (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit || itemevent.ActionType == ItemEvent.ItemActiontype.emResetBit)
+                    {
+                        await WriteTagSignalR(itemevent.Tag.Id, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
+                    }
+                    else if (itemevent.ActionType == ItemEvent.ItemActiontype.emSetValue)
+                    {
+                        await WriteTagSignalR(itemevent.Tag.Id, (itemevent.Value));
+                    }
+
                 }
             }
         }
@@ -120,8 +115,24 @@ namespace AppSCADA
             {
                 if (itemevent.EventType == ItemEvent.ItemEventType.emPress)
                 {
-                    //WritePLCTag(itemevent.TagName, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
-                    await WriteTagSignalR(itemevent.Tag.Id, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
+                    if (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit || itemevent.ActionType == ItemEvent.ItemActiontype.emResetBit)
+                    {
+                        //WritePLCTag(itemevent.TagName, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
+                        await WriteTagSignalR(itemevent.Tag.Id, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
+                    }
+                    else if (itemevent.ActionType == ItemEvent.ItemActiontype.emSetValue)
+                    {
+                        if (itemevent.Tag.Type == TagInfo.TagType.eByte)
+                        {
+                            await WriteTagSignalR(itemevent.Tag.Id, (itemevent.Value));
+                        }
+                        else if (itemevent.Tag.Type == TagInfo.TagType.eShort)
+                        {
+                            await WriteTagSignalR(itemevent.Tag.Id, (itemevent.Value));
+
+                        }
+
+                    }
                 }
             }
         }
@@ -271,6 +282,7 @@ namespace AppSCADA
             _hubProxy.On<AlarmPoint>("UpdateAlarmPoint", (alarmPoint) => ReceiveAlarmPointSignalR(alarmPoint));
             _hubProxy.On<int>("ACKAlarmPoint", (alarmPointId) => ReceiveACKAlarmPointSignalR(alarmPointId));
             _hubProxy.On<TrendPoint>("WriteTrendPoint", (trendPoint) => ReceiveTrendPointSignalR(trendPoint));
+            _hubProxy.On<List<TrendPoint>>("WriteCurrentTrendPoints", (trendPoints) => ReceiveCurrentTrendPointsSignalR(trendPoints));
 
             //btnConnect.Enabled = false;
 
@@ -288,10 +300,15 @@ namespace AppSCADA
             }
         }
 
+        private void ReceiveCurrentTrendPointsSignalR(List<TrendPoint> trendPoints)
+        {
+            trendPage.SetCurrentTrendPoints(trendPoints);
+        }
+
         private void ReceiveTrendPointSignalR(TrendPoint trendPoint)
         {
             trendPoints.Add(trendPoint);
-            alarmPage.AddNewTrendPoint(trendPoint);
+            trendPage.AddNewTrendPoint(trendPoint);
         }
 
         private void ReceiveACKAlarmPointSignalR(int alarmPointId)
@@ -310,39 +327,45 @@ namespace AppSCADA
             alarmPoints.Remove(alarmPoints.FirstOrDefault(ap => ap.Id == alarmId));
         }
 
+
+
         private void GetSCADAConfig(SCADAAppConfiguration config)
         {
-            if (config != null)
+            AppSCADAProperties.SCADAAppConfiguration = config;
+            AppSCADAProperties.TrendLimitPoints = 80;
+            if (AppSCADAProperties.SCADAAppConfiguration != null)
             {
-                if (config.ControlDatas != null)
+                if (AppSCADAProperties.SCADAAppConfiguration.ControlDatas != null)
                 {
-                    controlDatas = config.ControlDatas;
+                    controlDatas = AppSCADAProperties.SCADAAppConfiguration.ControlDatas;
                 }
                 if (config.CurrentAlarmPoints != null)
                 {
-                    foreach (var alarmPoint in config.CurrentAlarmPoints)
+                    foreach (var alarmPoint in AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints)
                     {
                         alarmPoints.Add(alarmPoint);
                     }
                 }
-                if (config.TrendViewSettings != null)
+                if (AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null)
                 {
-                    trendViewSettings = config.TrendViewSettings;
+                    trendViewSettings = AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings;
                 }
-                
+
                 AddControlFromControlDatas();
             }
 
         }
 
-        private void UpdateTagsSignalR(int tagid, int value)
+        private void UpdateTagsSignalR(int tagid, long value)
         {
+            var tag = AppSCADAProperties.SCADAAppConfiguration.TagInfos.FirstOrDefault(m => m.Id == tagid);
+            tag.Data = value;
             var controldatas = controlDatas.Where(p => ((p.animationSenses.Where(a => a.Tag.Id == tagid).Any()))).ToList();
             if (controldatas.Any())
             {
                 foreach (var controldata in controldatas)
                 {
-                    UpdateAnimation(tagid, value, controldata);
+                    UpdateAnimation(tag, controldata);
                 }
             }
 
@@ -351,20 +374,37 @@ namespace AppSCADA
             {
                 foreach (var controldata in controldatas)
                 {
-                    UpdateTagConnection(tagid, value, controldata);
+                    UpdateTagConnection(tag, controldata);
                 }
             }
 
         }
 
-        private void UpdateAnimation(int tagid, int value, ControlData controldata)
+        private void UpdateAnimation(TagInfo tag, ControlData controldata)
         {
-            var animations = controldata.animationSenses.Where(p => p.Tag.Id == tagid).ToList();
+            var animations = controldata.animationSenses.Where(p => p.Tag.Id == tag.Id).ToList();
             // animation.Tag.Value = value;
             if (animations.Any())
             {
                 foreach (AnimationSense animation in animations)
                 {
+                    int value = 0;
+                    if (tag.Type == TagInfo.TagType.eReal)
+                    {
+                        var temp = Convert.ToSingle(tag.Value);
+                        value = Convert.ToInt32(temp);
+                    }
+                    else if (tag.Type == TagInfo.TagType.eDouble)
+                    {
+                        var temp = Convert.ToDouble(tag.Value);
+                        value = Convert.ToInt32(temp);
+
+                    }
+                    else
+                    {
+                        value = Convert.ToInt32(tag.Value);
+                    }
+
                     if (value <= animation.Tagvaluemin && value >= animation.Tagvaluemax)
                     {
                         Device.BeginInvokeOnMainThread(() =>
@@ -386,14 +426,15 @@ namespace AppSCADA
             }
         }
 
-        private void UpdateTagConnection(int tagid, int value, ControlData controldata)
+        private void UpdateTagConnection(TagInfo tag, ControlData controldata)
         {
+
             if (controldata.TagConnection != null)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     //item.IsVisible = false;
-                    (controlDataDictionary[controldata] as Entry).Text = value.ToString();
+                    (controlDataDictionary[controldata] as Entry).Text = tag.Value;
                 });
             }
         }
@@ -416,17 +457,49 @@ namespace AppSCADA
             await connectAsync();
         }
 
-        private async void Alarm_button_Clicked(object sender, EventArgs e)
+        private async void Trend_button_Clicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new Page1());
-            alarmPage = new Page1(trendViewSettings);
-            alarmPage.AlarmACK += AlarmPage_AlarmACK;
-            await Navigation.PushAsync(alarmPage);
+            trendPage = new TrendPage();
+            //trendPage.AlarmACK += AlarmPage_AlarmACK;
+            trendPage.RequestCurrentTrendPoints(_hubProxy);
+            await Navigation.PushAsync(trendPage);
+
         }
 
         private void AlarmPage_AlarmACK(object sender, AlarmPointACKEventArgs e)
         {
             AckAlarmPointSignalR(e.AlarmPoint.Id);
         }
+
+        private async void Alarm_button_Clicked(object sender, EventArgs e)
+        {
+            alarmPage = new AlarmPage(alarmPoints);
+            alarmPage.AlarmACK += AlarmPage_AlarmACK;
+            await Navigation.PushAsync(alarmPage);
+        }
+        //double currentScale = 1; double startScale = 1;
+        //private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+        //{
+        //    if (e.Status == GestureStatus.Started)
+        //    {
+        //        // Bắt đầu pinch, lưu trữ scale ban đầu
+        //        startScale = MainScreen.Scale;
+        //        MainScreen.AnchorX = 0;
+        //        MainScreen.AnchorY = 0;
+        //    }
+        //    else if (e.Status == GestureStatus.Running)
+        //    {
+        //        // Tính toán scale mới
+        //        currentScale = startScale * e.Scale;
+        //        //currentScale = Math.Max(1, currentScale); // Đảm bảo scale không nhỏ hơn 1
+        //        MainScreen.Scale = currentScale;
+        //    }
+        //    else if (e.Status == GestureStatus.Completed)
+        //    {
+        //        // Lưu trữ scale cuối cùng
+        //        startScale = currentScale;
+        //    }
+        //}
     }
 }

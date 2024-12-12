@@ -14,7 +14,7 @@
     
     <ScrollView Orientation="Both" x:Name="scrollViewMain" >
         <StackLayout>
-            <Entry Text="http://192.168.1.31:8088/SCADA/signalr"
+            <Entry Text="http://192.168.1.154:8088/SCADA/signalr"
                    x:Name="IPAddress"
                    WidthRequest="100"
                    AbsoluteLayout.LayoutBounds="150, 0"></Entry>
@@ -22,107 +22,18 @@
                     AbsoluteLayout.LayoutBounds="250, 0"
                     Text="Connect"
                     Clicked="Connect_button_Clicked"></Button>
+            <Button x:Name="Trend_button"
+                    Text="Trends"
+                    Clicked="Trend_button_Clicked"></Button>
             <Button x:Name="Alarm_button"
                     Text="Alarms"
                     Clicked="Alarm_button_Clicked"></Button>
             <AbsoluteLayout x:Name="MainScreen">
-
                 <ActivityIndicator Color="Blue"
                                    AbsoluteLayout.LayoutBounds="0.5,0.5,200,200"
                                    AbsoluteLayout.LayoutFlags="All"
                                    IsRunning="False"
                                    x:Name="LoadingCircle"></ActivityIndicator>
-                <!--<Image
-                x:Name="testimage"
-                HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="35"
-                   WidthRequest="100"
-                   Aspect="AspectFill"
-                   Source="{local:ImageResource AppSCADA.image.pipe.png}"
-
-                   AbsoluteLayout.LayoutBounds="98, 350"></Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="25"
-                   Aspect="AspectFill"
-                   Source="{local:ImageResource AppSCADA.image.pipe.png}"
-                   AbsoluteLayout.LayoutBounds="98, 530, 100, 25"></Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="25"
-                   Aspect="AspectFill"
-                   Source="{local:ImageResource AppSCADA.image.pipe.png}"
-                   AbsoluteLayout.LayoutBounds="258, 530, 70, 25"></Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="70"
-                   WidthRequest="90"
-                   Aspect="Fill"
-                   Source="{Binding MyDevice.Motor_1.Runfeedback, Converter={StaticResource MotorImageConverter}}"
-                   AbsoluteLayout.LayoutBounds="20, 500">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenFacePlateCommand}"
-                                          CommandParameter="{Binding MyDevice.Motor_1}" />
-                </Image.GestureRecognizers>
-            </Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="70"
-                   WidthRequest="90"
-                   Aspect="Fill"
-                   Source="{Binding MyDevice.Motor_3.Runfeedback, Converter={StaticResource MotorImageConverter}}"
-                   AbsoluteLayout.LayoutBounds="290, 500">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenFacePlateCommand}"
-                                          CommandParameter="{Binding MyDevice.Motor_3}" />
-                </Image.GestureRecognizers>
-            </Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="70"
-                   WidthRequest="90"
-                   Aspect="Fill"
-                   Source="{Binding MyDevice.Motor_2.Runfeedback, Converter={StaticResource MotorImageConverter}}"
-                   AbsoluteLayout.LayoutBounds="20, 320">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenFacePlateCommand}"
-                                          CommandParameter="{Binding MyDevice.Motor_2}" />
-                </Image.GestureRecognizers>
-            </Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   Source="{Binding MyDevice.LowStatus, Converter={StaticResource StatusConverter}}"
-                   AbsoluteLayout.LayoutBounds="270, 480, 40, 40"></Image>
-            <Image HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   Source="{Binding MyDevice.HighStatus, Converter={StaticResource StatusConverter}}"
-                   AbsoluteLayout.LayoutBounds="270, 270, 40, 40"></Image>
-            <Image Source="{local:ImageResource AppSCADA.image.Tank.png}"
-                   VerticalOptions="Fill"
-                   HorizontalOptions="Fill"
-                   AbsoluteLayout.LayoutBounds="80, 230, 240, 330"></Image>
-            <ProgressBar Rotation="270"
-                         HeightRequest="100"
-                         WidthRequest="100"
-                         ScaleY="20"
-                         ScaleX="1.3"
-                         Progress="{Binding MyDevice.Level, Converter={StaticResource LevelProgressConverter}}"
-                         ProgressColor="ForestGreen"
-                         AbsoluteLayout.LayoutBounds="105, 30, 200, 800"></ProgressBar>
-            <Button Text="Start"
-                    AbsoluteLayout.LayoutBounds="150, 90, 100, 50"></Button>
-            <Button Text="Stop"
-                    AbsoluteLayout.LayoutBounds="270, 90, 100, 50"></Button>-->
-                <!--<Image Source="{local:ImageResource AppSCADA.image.Tank.png}"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   HeightRequest="780"
-                   WidthRequest="384"
-                   Aspect="Fill"
-                   AbsoluteLayout.LayoutBounds="0, 0"></Image>-->
-                <!--<Button Text="Stop"
-                    AbsoluteLayout.LayoutBounds="270, 90, 100, 50" Clicked="Button_Clicked"></Button>-->
             </AbsoluteLayout>
         </StackLayout>
 

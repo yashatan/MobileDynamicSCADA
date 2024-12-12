@@ -23,6 +23,18 @@ namespace AppSCADA
             get { return trendViewSettings; }
             set { trendViewSettings = value; }
         }
+        List<TagLoggingSetting> tagLoggingSettings;
+        public List<TagLoggingSetting> TagLoggingSettings
+        {
+            get { return tagLoggingSettings; }
+            set { tagLoggingSettings = value; }
+        }
+        private List<TagInfo> tagInfos;
+        public List<TagInfo> TagInfos
+        {
+            get { return tagInfos; }
+            set { tagInfos = value; }
+        }
         public SCADAAppConfiguration()
         {
         }

@@ -119,15 +119,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="EasyModbus">
-      <HintPath>EasyModbus.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Android">
-      <HintPath>E:\VisualStudio2022\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="image\agitators.rar" />
     <Resource Include="image\agitator_1.gif" />
     <Resource Include="image\agitator_2.gif" />
@@ -151,10 +142,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="View\TrendPage.xaml.cs">
+      <DependentUpon>TrendPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="FacePlate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\Page1.xaml">
+    <EmbeddedResource Update="View\AlarmPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\TrendPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
