@@ -10,7 +10,9 @@ namespace AppSCADA
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            //MainPage = new NavigationPage(new MainPage());
+            //NavigationPage StartPage;
+            MainPage = new StartPage();
            // MainPage = new MainPage();
         }
 

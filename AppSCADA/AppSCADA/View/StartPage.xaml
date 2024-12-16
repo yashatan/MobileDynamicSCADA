@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Background="White"
+             x:Class="AppSCADA.StartPage">
+    <ContentPage.Content>
+        <StackLayout Padding="40"
+                     VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand">
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="White"
+                   HasShadow="True">
+                <StackLayout Padding="40"
+                             VerticalOptions="Center"
+                             HorizontalOptions="FillAndExpand">
+                    <Image Source="logobachkhoasang.png"
+                           WidthRequest="180"
+                           HeightRequest="180"></Image>
+                    <Entry Placeholder="Server URL"
+                           PlaceholderColor="LightGray"></Entry>
+                    <Button VerticalOptions="Center"
+                            Text="Connect"
+                            TextColor="White"
+                            WidthRequest="200"
+                            Margin="40"
+                            BorderWidth="1.5"
+                            BorderColor="White"
+                            CornerRadius="50"
+                            BackgroundColor="Blue"></Button>
+                </StackLayout>
+                
+
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
