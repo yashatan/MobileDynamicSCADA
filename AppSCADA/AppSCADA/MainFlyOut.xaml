@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSCADA.MainFlyOut"
+            NavigationPage.HasBackButton="False"
+            NavigationPage.HasNavigationBar="False"
+             xmlns:pages="clr-namespace:AppSCADA">
+  <FlyoutPage.Flyout>
+    <pages:MainFlyOutFlyout x:Name="FlyoutPage" />
+  </FlyoutPage.Flyout>
+  <FlyoutPage.Detail>
+    <NavigationPage>
+      <x:Arguments>
+        <pages:MainFlyOutDetail />
+      </x:Arguments>
+    </NavigationPage>
+  </FlyoutPage.Detail>
+</FlyoutPage>

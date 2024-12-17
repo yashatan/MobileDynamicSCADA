@@ -11,6 +11,8 @@ using Xamarin.Forms.Shapes;
 using Microsoft.AspNet.SignalR.Client;
 using System.Collections.ObjectModel;
 using HarfBuzzSharp;
+using static System.Net.WebRequestMethods;
+using Xamarin.Essentials;
 
 namespace AppSCADA
 {
@@ -25,31 +27,35 @@ namespace AppSCADA
         ObservableCollection<AlarmPoint> alarmPoints;
         ObservableCollection<TrendPoint> trendPoints;
         Dictionary<ControlData, View> controlDataDictionary;
-        Plc thePLC;
-        string IP = "192.168.0.201";
-        System.Timers.Timer UpdateTimer;
+        public string url;
         TrendPage trendPage;
         AlarmPage alarmPage;
+        private bool ControlIsLoaded;
         public MainPage()
         {
             InitializeComponent();
             //this.Appearing += MainPage_AppearingAsync;//Load file and start PLC after 
             alarmPoints = new ObservableCollection<AlarmPoint>();
             trendPoints = new ObservableCollection<TrendPoint>();
+            ControlIsLoaded = false;
+            Appearing += MainPage_Appearing;
         }
 
-        //private async void MainPage_AppearingAsync(object sender, EventArgs e)
-        //{
-        //    //var fileResult = await FilePicker.PickAsync();
-        //    //if (fileResult != null)
-        //    //{
-        //    //    var filestream = await fileResult.OpenReadAsync();
-        //    //    controlDatas = DeserializeControlData(filestream);
-        //    //}
+        private void MainPage_Appearing(object sender, EventArgs e)
+        {
+            if ((!ControlIsLoaded))
+            {
+                AddControlFromControlDatas();
+                ControlIsLoaded = true;
+            }
+        }
 
-        //    //  AddControlFromControlDatas();
-        //}
-
+        private void ForceScrollViewToRefresh()
+        { 
+            var currentContent = scrollViewMain.Content;
+            scrollViewMain.Content = null;
+            scrollViewMain.Content = currentContent;
+        }
         private void AddControlFromControlDatas()
         {
             controlDataDictionary = new Dictionary<ControlData, View>();
@@ -82,7 +88,8 @@ namespace AppSCADA
                     }
                 }
             }
-            Device.BeginInvokeOnMainThread(() => { LoadingCircle.IsRunning = false; });
+            ForceScrollViewToRefresh();
+            //Device.BeginInvokeOnMainThread(() => { LoadingCircle.IsRunning = false; });
         }
 
 
@@ -251,28 +258,29 @@ namespace AppSCADA
 
             return listControls;
         }
-
+        double needwid;
+        double needhei;
         private void UpdateMainScreenSize(ControlData controldata)
         {
-
             if (MainScreen.Height < controldata.Y + controldata.Height)
             {
                 var neededHeight = controldata.Y + controldata.Height;
+                needhei = neededHeight;
                 MainScreen.HeightRequest = neededHeight;
                 MainScreen.ResolveLayoutChanges();
             }
             if (MainScreen.Width < controldata.X + controldata.Width)
             {
                 var neededWidth = controldata.X + controldata.Width;
+                needwid = neededWidth;
                 MainScreen.WidthRequest = neededWidth;
                 MainScreen.ResolveLayoutChanges();
             }
-
         }
-        private async Task connectAsync()
+        public async Task connectAsync()
         {
             //Create a connection for the SignalR server
-            var url = IPAddress.Text;
+            var url_temp = url;
             var _signalRConnection = new HubConnection(url);
             _signalRConnection.StateChanged += HubConnection_StateChanged;
 
@@ -290,8 +298,8 @@ namespace AppSCADA
             {
                 //Connect to the server
                 await _signalRConnection.Start();
-                await _hubProxy.Invoke("SetUserName", "test");
-                Connect_button.Text = "Disconnect";
+                await _hubProxy.Invoke("SetUserName", DeviceInfo.Name);
+                //Connect_button.Text = "Disconnect";
             }
             catch (Exception ex)
             {
@@ -335,9 +343,9 @@ namespace AppSCADA
             AppSCADAProperties.TrendLimitPoints = 80;
             if (AppSCADAProperties.SCADAAppConfiguration != null)
             {
-                if (AppSCADAProperties.SCADAAppConfiguration.ControlDatas != null)
+                if (AppSCADAProperties.SCADAAppConfiguration.SCADAPages != null)
                 {
-                    controlDatas = AppSCADAProperties.SCADAAppConfiguration.ControlDatas;
+                    controlDatas = AppSCADAProperties.SCADAAppConfiguration.SCADAPages.Where(m => m.Name == "MainPage").First().ControlDatas;
                 }
                 if (config.CurrentAlarmPoints != null)
                 {
@@ -351,7 +359,7 @@ namespace AppSCADA
                     trendViewSettings = AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings;
                 }
 
-                AddControlFromControlDatas();
+
             }
 
         }
@@ -382,61 +390,68 @@ namespace AppSCADA
 
         private void UpdateAnimation(TagInfo tag, ControlData controldata)
         {
-            var animations = controldata.animationSenses.Where(p => p.Tag.Id == tag.Id).ToList();
-            // animation.Tag.Value = value;
-            if (animations.Any())
+            if (ControlIsLoaded)
             {
-                foreach (AnimationSense animation in animations)
+                var animations = controldata.animationSenses.Where(p => p.Tag.Id == tag.Id).ToList();
+                // animation.Tag.Value = value;
+                if (animations.Any())
                 {
-                    int value = 0;
-                    if (tag.Type == TagInfo.TagType.eReal)
+                    foreach (AnimationSense animation in animations)
                     {
-                        var temp = Convert.ToSingle(tag.Value);
-                        value = Convert.ToInt32(temp);
-                    }
-                    else if (tag.Type == TagInfo.TagType.eDouble)
-                    {
-                        var temp = Convert.ToDouble(tag.Value);
-                        value = Convert.ToInt32(temp);
-
-                    }
-                    else
-                    {
-                        value = Convert.ToInt32(tag.Value);
-                    }
-
-                    if (value <= animation.Tagvaluemin && value >= animation.Tagvaluemax)
-                    {
-                        Device.BeginInvokeOnMainThread(() =>
+                        int value = 0;
+                        if (tag.Type == TagInfo.TagType.eReal)
                         {
-                            switch (animation.PropertyNeedChange)
-                            {
-                                case AnimationSense.PropertyType.emIsVisible:
-                                    UpdateItemVisible(controlDataDictionary[controldata], animation.PropertyBoolValueWhenTagInRange);
-                                    break;
-                                case AnimationSense.PropertyType.emBackgroundColor:
-                                    UpdateItemColor(controlDataDictionary[controldata], animation.ColorWhenTagInRange);
-                                    break;
-                                default: throw new ArgumentException();
-                            }
-                        });
+                            var temp = Convert.ToSingle(tag.Value);
+                            value = Convert.ToInt32(temp);
+                        }
+                        else if (tag.Type == TagInfo.TagType.eDouble)
+                        {
+                            var temp = Convert.ToDouble(tag.Value);
+                            value = Convert.ToInt32(temp);
 
+                        }
+                        else
+                        {
+                            value = Convert.ToInt32(tag.Value);
+                        }
+
+                        if (value <= animation.Tagvaluemin && value >= animation.Tagvaluemax)
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                switch (animation.PropertyNeedChange)
+                                {
+                                    case AnimationSense.PropertyType.emIsVisible:
+                                        UpdateItemVisible(controlDataDictionary[controldata], animation.PropertyBoolValueWhenTagInRange);
+                                        break;
+                                    case AnimationSense.PropertyType.emBackgroundColor:
+                                        UpdateItemColor(controlDataDictionary[controldata], animation.ColorWhenTagInRange);
+                                        break;
+                                    default: throw new ArgumentException();
+                                }
+                            });
+
+                        }
                     }
                 }
             }
+
         }
 
         private void UpdateTagConnection(TagInfo tag, ControlData controldata)
         {
-
-            if (controldata.TagConnection != null)
+            if (ControlIsLoaded)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                if (controldata.TagConnection != null)
                 {
-                    //item.IsVisible = false;
-                    (controlDataDictionary[controldata] as Entry).Text = tag.Value;
-                });
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        //item.IsVisible = false;
+                        (controlDataDictionary[controldata] as Entry).Text = tag.Value;
+                    });
+                }
             }
+
         }
 
         private async Task WriteTagSignalR(int tagid, object value)
@@ -453,7 +468,7 @@ namespace AppSCADA
 
         private async void Connect_button_Clicked(object sender, EventArgs e)
         {
-            LoadingCircle.IsRunning = true;
+            //LoadingCircle.IsRunning = true;
             await connectAsync();
         }
 
@@ -474,9 +489,10 @@ namespace AppSCADA
 
         private async void Alarm_button_Clicked(object sender, EventArgs e)
         {
-            alarmPage = new AlarmPage(alarmPoints);
-            alarmPage.AlarmACK += AlarmPage_AlarmACK;
-            await Navigation.PushAsync(alarmPage);
+            //alarmPage = new AlarmPage(alarmPoints);
+            //alarmPage.AlarmACK += AlarmPage_AlarmACK;
+            //await Navigation.PushAsync(alarmPage);
+
         }
         //double currentScale = 1; double startScale = 1;
         //private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)

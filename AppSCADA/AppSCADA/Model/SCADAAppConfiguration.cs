@@ -8,8 +8,6 @@ namespace AppSCADA
 {
     public class SCADAAppConfiguration
     {
-        List<ControlData> controlDatas;
-        public List<ControlData> ControlDatas { get { return controlDatas; } set { controlDatas = value; } }
         private List<AlarmPoint> currentAlarmPoints;
 
         public List<AlarmPoint> CurrentAlarmPoints
@@ -34,6 +32,12 @@ namespace AppSCADA
         {
             get { return tagInfos; }
             set { tagInfos = value; }
+        }
+        List<SCADAPage> scadaPages;
+        public List<SCADAPage> SCADAPages
+        {
+            get { return scadaPages; }
+            set { scadaPages = value; }
         }
         public SCADAAppConfiguration()
         {

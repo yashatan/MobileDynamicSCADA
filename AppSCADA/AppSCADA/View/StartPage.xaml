@@ -4,34 +4,39 @@
              Background="White"
              x:Class="AppSCADA.StartPage">
     <ContentPage.Content>
-        <StackLayout Padding="40"
-                     VerticalOptions="Center"
-                     HorizontalOptions="FillAndExpand">
-            <Frame Padding="10"
-                   CornerRadius="10"
-                   BackgroundColor="White"
-                   HasShadow="True">
-                <StackLayout Padding="40"
-                             VerticalOptions="Center"
-                             HorizontalOptions="FillAndExpand">
-                    <Image Source="logobachkhoasang.png"
-                           WidthRequest="180"
-                           HeightRequest="180"></Image>
-                    <Entry Placeholder="Server URL"
-                           PlaceholderColor="LightGray"></Entry>
-                    <Button VerticalOptions="Center"
-                            Text="Connect"
-                            TextColor="White"
-                            WidthRequest="200"
-                            Margin="40"
-                            BorderWidth="1.5"
-                            BorderColor="White"
-                            CornerRadius="50"
-                            BackgroundColor="Blue"></Button>
-                </StackLayout>
-                
-
-            </Frame>
-        </StackLayout>
+        <Grid>
+            <StackLayout Padding="30"
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand">
+                <ActivityIndicator Color="Blue"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   IsRunning="False"
+                                   x:Name="LoadingCircle"></ActivityIndicator>
+                <Image Source="logobachkhoasang.png"
+                       WidthRequest="150"
+                       HeightRequest="150"></Image>
+                <Label Text="SCADA Application"
+                       FontSize="30"
+                       TextColor="Blue"
+                       FontAttributes="Bold"
+                       Margin="0, -20, 0, 100"
+                       HorizontalOptions="Center"></Label>
+                <Entry Placeholder="Server URL"
+                       Text="http://192.168.1.2:8088/DemoSCADA/signalr"
+                       x:Name="txtSeverurl"
+                       PlaceholderColor="LightGray"></Entry>
+                <Button VerticalOptions="Center"
+                        Text="Connect"
+                        TextColor="White"
+                        WidthRequest="200"
+                        Margin="40"
+                        BorderWidth="1.5"
+                        BorderColor="White"
+                        CornerRadius="50"
+                        Clicked="Button_Clicked"
+                        BackgroundColor="Blue"></Button>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
