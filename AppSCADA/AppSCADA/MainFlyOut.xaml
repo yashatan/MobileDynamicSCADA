@@ -8,11 +8,11 @@
   <FlyoutPage.Flyout>
     <pages:MainFlyOutFlyout x:Name="FlyoutPage" />
   </FlyoutPage.Flyout>
-  <FlyoutPage.Detail>
+  <!--<FlyoutPage.Detail>
     <NavigationPage>
       <x:Arguments>
-        <pages:MainFlyOutDetail />
+        <pages:MainPage />
       </x:Arguments>
     </NavigationPage>
-  </FlyoutPage.Detail>
+  </FlyoutPage.Detail>-->
 </FlyoutPage>

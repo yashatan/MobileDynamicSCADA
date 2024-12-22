@@ -95,7 +95,7 @@ namespace AppSCADA
                 PageStackLayout.Children.Add(chart);
             }
           //  RequestCurrentTrendPoints();
-            BindingContext = this;
+            BindingContext = this;  
         }
 
         public void RequestCurrentTrendPoints(IHubProxy _hubProxy)
@@ -130,15 +130,11 @@ namespace AppSCADA
             List<ObservableCollection<DateTimePoint>> chartValueList = TagloggingIdLinesMap.Where(t => t.Item1 == trendPoint.TagLoggingId).Select(t => t.Item2).ToList();
             foreach (var charvalue in chartValueList)
             {
-                if (charvalue.Count > 0)
-                {
                     charvalue.Add(new DateTimePoint(trendPoint.TimeStamp, trendPoint.Value));
                     if (charvalue.Count > AppSCADAProperties.TrendLimitPoints)
                     {
                         charvalue.RemoveAt(0);
                     }
-                }
-
             }
 
         }

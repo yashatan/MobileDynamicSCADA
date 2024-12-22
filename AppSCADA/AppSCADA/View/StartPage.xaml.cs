@@ -24,6 +24,7 @@ namespace AppSCADA
             await App.mainPage.connectAsync();
             LoadingCircle.IsRunning = true;
             MainFlyOut mainFlyOut = new MainFlyOut();
+            mainFlyOut.Detail = new NavigationPage(App.mainPage);
             await Navigation.PushAsync(mainFlyOut);
         }
     }
