@@ -231,6 +231,16 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\world.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logobachkhoasang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\logobachkhoasang.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\logobachkhoasang.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\logobachkhoasang.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\logobachkhoasang.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\logobachkhoasang.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

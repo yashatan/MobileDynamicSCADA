@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <PackageId>SCADA Application</PackageId>
+    <PackageIcon>01_logobachkhoasang.png</PackageIcon>
+    <Product>SCADA Application</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -107,6 +110,15 @@
     <EmbeddedResource Include="image\test.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <None Include="..\..\..\SCADAStation\SCADAStationNetFrameWork\image\01_logobachkhoasang.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
