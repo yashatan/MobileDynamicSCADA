@@ -25,13 +25,19 @@ namespace AppSCADA
                 return;
             if(item.TargetType == typeof(MainPage))
             {
-                 MainPage page = App.mainPage;
+                MainPage page = App.PageList.FirstOrDefault(p => p.Id == App.CurrentPageId);
                 page.Title = item.Title;
                 Detail = new NavigationPage(page);
                 IsPresented = false;
-
                 FlyoutPage.ListView.SelectedItem = null;
-
+            }
+            else if (item.TargetType == typeof(AlarmPage))
+            {
+                AlarmPage page = App.AlarmPage;
+                page.Title = item.Title;
+                Detail = new NavigationPage(page);
+                IsPresented = false;
+                FlyoutPage.ListView.SelectedItem = null;
             }
             else
             {
@@ -39,12 +45,8 @@ namespace AppSCADA
                 page.Title = item.Title;
                 Detail = new NavigationPage(page);
                 IsPresented = false;
-
                 FlyoutPage.ListView.SelectedItem = null;
             }
-
-
-
         }
     }
 }

@@ -11,37 +11,29 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Id}"></Label>
-                                    <Label Text="{Binding Name}"></Label>
-                                    <Label Text="{Binding Text}"></Label>
-                                    <Label Text="{Binding TimeStamp}"></Label>
+                                    <Label Text="{Binding Name}"
+                                           FontSize="Medium"
+                                           TextColor="Black"
+                                           WidthRequest="100"
+                                           ></Label>
+                                    <Label Text="{Binding Text}"
+                                           TextColor="Black"
+                                           WidthRequest="220"
+                                           FontSize="Medium"></Label>
+                                    <Label Text="{Binding TimeStamp}"
+                                           TextColor="Black"
+                                           FontSize="Medium"></Label>
                                     <Button Text="ACK"
+                                            Margin="10,0 ,0 ,0"
+                                            Background="blue"
+                                            TextColor="White"
                                             Clicked="Button_Clicked"></Button>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView> 
+                </ListView>
             </StackLayout>
         </ScrollView>
-        <!--<Label 
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand" />
-        <ListView x:Name="lvAlarm">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Id}"></Label>
-                            <Label Text="{Binding Name}"></Label>
-                            <Label Text="{Binding Text}"></Label>
-                            <Label Text="{Binding TimeStamp}"></Label>
-                            <Button Text="ACK"
-                                    Clicked="Button_Clicked"></Button>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
     </ContentPage.Content>
 </ContentPage>

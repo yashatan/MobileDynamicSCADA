@@ -42,6 +42,6 @@ namespace AppSCADA
         public SCADAAppConfiguration()
         {
         }
-
+        public int MainPageId;
     }
 }

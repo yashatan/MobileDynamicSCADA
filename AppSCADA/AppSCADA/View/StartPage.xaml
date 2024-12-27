@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <Grid>
             <StackLayout Padding="30"
-                         VerticalOptions="Center"
+                         VerticalOptions="StartAndExpand"
                          HorizontalOptions="FillAndExpand">
                 <ActivityIndicator Color="Blue"
                                    VerticalOptions="Center"
@@ -25,6 +25,7 @@
                 <Entry Placeholder="Server URL"
                        Text="http://192.168.1.2:8088/DemoSCADA/signalr"
                        x:Name="txtSeverurl"
+                       TextColor="Black"
                        PlaceholderColor="LightGray"></Entry>
                 <Button VerticalOptions="Center"
                         Text="Connect"
@@ -34,6 +35,7 @@
                         BorderWidth="1.5"
                         BorderColor="White"
                         CornerRadius="50"
+                        IsEnabled ="True"
                         Clicked="Button_Clicked"
                         BackgroundColor="Blue"></Button>
             </StackLayout>

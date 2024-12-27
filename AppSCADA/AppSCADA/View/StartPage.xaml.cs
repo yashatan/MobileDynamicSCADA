@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppSCADA.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,15 +18,34 @@ namespace AppSCADA
             InitializeComponent();
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+         private async void Button_Clicked(object sender, EventArgs e)
         {
             (sender as Button).IsEnabled = false;
-            App.mainPage.url = txtSeverurl.Text;
-            await App.mainPage.connectAsync();
+            AppSCADAController.Instance.serverURL = txtSeverurl.Text;
+            AppSCADAController.Instance.LoadedConfiguration += Instance_LoadedConfiguration;
             LoadingCircle.IsRunning = true;
-            MainFlyOut mainFlyOut = new MainFlyOut();
-            mainFlyOut.Detail = new NavigationPage(App.mainPage);
-            await Navigation.PushAsync(mainFlyOut);
+            bool ConnectResult = await AppSCADAController.Instance.connectAsync();
+            if (ConnectResult)
+            { 
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Connect Fail", "Plese check URL or network", "OK");
+            }
+            LoadingCircle.IsRunning = false;
+            (sender as Button).IsEnabled = true;
+        }
+
+        private void Instance_LoadedConfiguration(object sender, EventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(async () => {
+                MainFlyOut mainFlyOut = new MainFlyOut();
+                mainFlyOut.Detail = new NavigationPage(App.PageList.FirstOrDefault(p => p.Id == AppSCADAProperties.SCADAAppConfiguration.MainPageId));
+                App.CurrentPageId = AppSCADAProperties.SCADAAppConfiguration.MainPageId;
+                await Navigation.PushAsync(mainFlyOut);
+            });
+
         }
     }
 }

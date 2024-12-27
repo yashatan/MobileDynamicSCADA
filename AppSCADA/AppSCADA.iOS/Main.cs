@@ -17,4 +17,6 @@ namespace AppSCADA.iOS
             UIApplication.Main(args, null, "AppDelegate");
         }
     }
+
+
 }
