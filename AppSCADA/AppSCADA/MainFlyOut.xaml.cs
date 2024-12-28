@@ -23,9 +23,9 @@ namespace AppSCADA
             var item = e.SelectedItem as MainFlyOutFlyoutMenuItem;
             if (item == null)
                 return;
-            if(item.TargetType == typeof(MainPage))
+            if(item.TargetType == typeof(SCADAViewPage))
             {
-                MainPage page = App.PageList.FirstOrDefault(p => p.Id == App.CurrentPageId);
+                SCADAViewPage page = App.SCADAViewPageList.FirstOrDefault(p => p.Id == App.CurrentPageId);
                 page.Title = item.Title;
                 Detail = new NavigationPage(page);
                 IsPresented = false;
@@ -34,6 +34,14 @@ namespace AppSCADA
             else if (item.TargetType == typeof(AlarmPage))
             {
                 AlarmPage page = App.AlarmPage;
+                page.Title = item.Title;
+                Detail = new NavigationPage(page);
+                IsPresented = false;
+                FlyoutPage.ListView.SelectedItem = null;
+            }
+            else if (item.TargetType == typeof(TrendPage))
+            {
+                TrendPage page = App.TrendPage;
                 page.Title = item.Title;
                 Detail = new NavigationPage(page);
                 IsPresented = false;

@@ -10,18 +10,14 @@ using Xamarin.Forms;
 using System.Linq;
 using Xamarin.Essentials;
 using System.Threading;
+using HarfBuzzSharp;
 
 namespace AppSCADA.Utility
 {
     public class AppSCADAController
     {
-
-
-        List<ControlData> controlDatas;
-        List<TrendViewSetting> trendViewSettings;
         ObservableCollection<AlarmPoint> alarmPoints;
         ObservableCollection<TrendPoint> trendPoints;
-        Dictionary<ControlData, View> controlDataDictionary;
 
         #region Constructor
         private static AppSCADAController instance;
@@ -40,8 +36,11 @@ namespace AppSCADA.Utility
         private AppSCADAController()
         {
             alarmPoints = new ObservableCollection<AlarmPoint>();
+            trendPoints = new ObservableCollection<TrendPoint>();
         }
         #endregion
+
+
         #region SignalR
         HubConnection _signalRConnection;
         IHubProxy _hubProxy;
@@ -98,28 +97,9 @@ namespace AppSCADA.Utility
             var tag = AppSCADAProperties.SCADAAppConfiguration.TagInfos.FirstOrDefault(m => m.Id == tagid);
             tag.Data = value;
             TagUpdated?.Invoke(tag);
-            //var controldatas = controlDatas.Where(p => ((p.animationSenses.Where(a => a.Tag.Id == tagid).Any()))).ToList();
-            //if (controldatas.Any())
-            //{
-            //    //foreach (var controldata in controldatas)
-            //    //{
-            //    //UpdateAnimation(tag, controldata);
-            //    //}
-            //    OnTagUpdated();
-            //}
-
-            //controldatas = controlDatas.Where(p => ((p.TagConnection != null) && (p.TagConnection.Id == tagid))).ToList();
-            //if (controldatas.Any())
-            //{
-            //    foreach (var controldata in controldatas)
-            //    {
-            //        //UpdateTagConnection(tag, controldata);
-            //    }
-            //}
-
         }
 
-        private void GetSCADAConfig(SCADAAppConfiguration config)
+        private async void GetSCADAConfig(SCADAAppConfiguration config)
         {
             AppSCADAProperties.SCADAAppConfiguration = config;
             AppSCADAProperties.TrendLimitPoints = 80;
@@ -129,14 +109,14 @@ namespace AppSCADA.Utility
                 {
                     foreach (var page in AppSCADAProperties.SCADAAppConfiguration.SCADAPages)
                     {
-                        MainPage mainPage = new MainPage();
+                        SCADAViewPage mainPage = new SCADAViewPage();
                         mainPage.SetControlDatas(page.ControlDatas);
                         mainPage.Id = page.Id;
                         mainPage.Name = page.Name;
-                        App.PageList.Add(mainPage);
+                        App.SCADAViewPageList.Add(mainPage);
                     }
                 }
-                if (config.CurrentAlarmPoints != null)
+                if (AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints != null)
                 {
                     foreach (var alarmPoint in AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints)
                     {
@@ -145,16 +125,20 @@ namespace AppSCADA.Utility
                     App.AlarmPage = new AlarmPage(alarmPoints);
                     App.AlarmPage.AlarmACK += AlarmPage_AlarmACK;
                 }
-                //if (AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null)
-                //{
-                //    trendViewSettings = AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings;
-                //}
+                if(AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null && AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
+                {
+                    App.TrendPage = new TrendPage();
+                }
 
                 OnLoadedConfiguration();
             }
 
         }
 
+        public async Task RequestCurrentTagValue()
+        {
+            await _hubProxy.Invoke("GetCurrentTagsValue");
+        }
         private void ReceiveACKAlarmPointSignalR(int alarmPointId)
         {
             alarmPoints.Remove(alarmPoints.FirstOrDefault(ap => ap.Id == alarmPointId));
@@ -167,13 +151,13 @@ namespace AppSCADA.Utility
 
         private void ReceiveCurrentTrendPointsSignalR(List<TrendPoint> trendPoints)
         {
-            //trendPage.SetCurrentTrendPoints(trendPoints);
+            App.TrendPage.SetCurrentTrendPoints(trendPoints);
         }
 
         private void ReceiveTrendPointSignalR(TrendPoint trendPoint)
         {
             trendPoints.Add(trendPoint);
-            //trendPage.AddNewTrendPoint(trendPoint);
+            App.TrendPage.AddNewTrendPoint(trendPoint);
         }
         public async Task WriteTagSignalR(int tagid, object value)
         {

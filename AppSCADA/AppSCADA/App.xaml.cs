@@ -7,9 +7,10 @@ namespace AppSCADA
 {
     public partial class App : Application
     {
-        public static MainPage mainPage {  get; private set; } 
+        public static SCADAViewPage mainPage {  get; private set; } 
         public static AlarmPage AlarmPage {  get; set; } 
-        public static List<MainPage> PageList { get; set; }
+        public static TrendPage TrendPage {  get; set; } 
+        public static List<SCADAViewPage> SCADAViewPageList { get; set; }
         public static int CurrentPageId;
         public App()
         {
@@ -17,10 +18,8 @@ namespace AppSCADA
 
             //MainPage = new NavigationPage(new MainPage());
             //NavigationPage StartPage;
-            PageList = new List<MainPage>();
-            //alarmPage = new AlarmPage();
+            SCADAViewPageList = new List<SCADAViewPage>();
             MainPage = new NavigationPage(new StartPage());
-            // MainPage = new MainPage();
         }
 
         protected override void OnStart()

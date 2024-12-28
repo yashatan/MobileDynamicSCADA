@@ -33,7 +33,7 @@ namespace AppSCADA
             {
                 MenuItems = new ObservableCollection<MainFlyOutFlyoutMenuItem>(new[]
                 {
-                    new MainFlyOutFlyoutMenuItem { Id = 0, Title = "SCADA View Page" , TargetType=typeof(MainPage)},
+                    new MainFlyOutFlyoutMenuItem { Id = 0, Title = "SCADA View Page" , TargetType=typeof(SCADAViewPage)},
                     new MainFlyOutFlyoutMenuItem { Id = 1, Title = "Alarm Page", TargetType=typeof(AlarmPage)},
                     new MainFlyOutFlyoutMenuItem { Id = 2, Title = "Trend Page", TargetType=typeof(TrendPage)},
                 });

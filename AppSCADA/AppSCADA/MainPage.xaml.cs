@@ -15,36 +15,27 @@ using Xamarin.Essentials;
 
 namespace AppSCADA
 {
-    public partial class MainPage : ContentPage
+    public partial class SCADAViewPage : ContentPage
     {
+
         List<ControlData> controlDatas;
-        List<TrendViewSetting> trendViewSettings;
         Dictionary<ControlData, View> controlDataDictionary;
-        List<TrendPoint> trendPoints;
-        TrendPage trendPage;
         private bool ControlIsLoaded;
         public new int Id { get; set; }
         public string Name { get; set; }
-        public MainPage()
+        public SCADAViewPage()
         {
             InitializeComponent();
             ControlIsLoaded = false;
-            Appearing += MainPage_Appearing;
-        }
-        private void Instance_TagUpdated(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            Appearing += SCADAViewPageAppearing;
         }
 
-        private void MainPage_Appearing(object sender, EventArgs e)
+        #region LoadPage
+        public void SetControlDatas(List<ControlData> controlDatas)
         {
-            if ((!ControlIsLoaded))
-            {
-                AddControlFromControlDatas();
-                ControlIsLoaded = true;
-            }
+            this.controlDatas = controlDatas;
+            AppSCADAController.Instance.TagUpdated += UpdateTagsSignalR;
         }
-
         private void ForceScrollViewToRefresh()
         {
             var currentContent = scrollViewMain.Content;
@@ -78,16 +69,27 @@ namespace AppSCADA
                     if (control.GetType() == typeof(Button))
                     {
                         var buttoncontrol = (control as Button);
-                        buttoncontrol.Pressed += MainPage_Pressed;
-                        buttoncontrol.Released += MainPage_Released;
+                        buttoncontrol.Pressed += SCADAViewPagePressed;
+                        buttoncontrol.Released += SCADAViewPageReleased;
                     }
                 }
             }
             ForceScrollViewToRefresh();
         }
+        #endregion
 
+        #region Item Event
+        private async void SCADAViewPageAppearing(object sender, EventArgs e)
+        {
+            if ((!ControlIsLoaded))
+            {
+                AddControlFromControlDatas();
+                ControlIsLoaded = true;
+                await AppSCADAController.Instance.RequestCurrentTagValue();
+            }
+        }
 
-        private async void MainPage_Released(object sender, EventArgs e)
+        private async void SCADAViewPageReleased(object sender, EventArgs e)
         {
             ControlData controldata = controlDataDictionary.FirstOrDefault(p => p.Value.GetHashCode() == (sender as View).GetHashCode()).Key;
             foreach (var itemevent in controldata.ItemEvents)
@@ -107,7 +109,7 @@ namespace AppSCADA
             }
         }
 
-        private async void MainPage_Pressed(object sender, EventArgs e)
+        private async void SCADAViewPagePressed(object sender, EventArgs e)
         {
             ControlData controldata = controlDataDictionary.FirstOrDefault(p => p.Value.GetHashCode() == (sender as View).GetHashCode()).Key;
             foreach (var itemevent in controldata.ItemEvents)
@@ -116,7 +118,6 @@ namespace AppSCADA
                 {
                     if (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit || itemevent.ActionType == ItemEvent.ItemActiontype.emResetBit)
                     {
-                        //WritePLCTag(itemevent.TagName, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
                         await AppSCADAController.Instance.WriteTagSignalR(itemevent.Tag.Id, (itemevent.ActionType == ItemEvent.ItemActiontype.emSetbit));
                     }
                     else if (itemevent.ActionType == ItemEvent.ItemActiontype.emSetValue)
@@ -135,7 +136,9 @@ namespace AppSCADA
                 }
             }
         }
+        #endregion
 
+        #region AnimationSense
         private void UpdateItemColor(View item, ColorRGB colorWhenTagInRange)
         {
             if (item.GetType().IsSubclassOf(typeof(Shape)))
@@ -164,20 +167,6 @@ namespace AppSCADA
             }
         }
 
-        public static List<ControlData> DeserializeControlData(Stream filePath)
-        {
-            List<ControlData> listControls;
-            using (var reader = new StreamReader(filePath))
-            {
-                var jsonString = reader.ReadToEnd();
-
-                listControls = JsonSerializer.Deserialize<List<ControlData>>(jsonString);
-            }
-            //string jsonString = File.ReadAllText(filePath);
-
-            return listControls;
-        }
-
         private void UpdateMainScreenSize(ControlData controldata)
         {
             if (MainScreen.Height < controldata.Y + controldata.Height)
@@ -193,20 +182,6 @@ namespace AppSCADA
                 MainScreen.ResolveLayoutChanges();
             }
         }
-
-
-        private void ReceiveCurrentTrendPointsSignalR(List<TrendPoint> trendPoints)
-        {
-            trendPage.SetCurrentTrendPoints(trendPoints);
-        }
-
-        private void ReceiveTrendPointSignalR(TrendPoint trendPoint)
-        {
-            trendPoints.Add(trendPoint);
-            trendPage.AddNewTrendPoint(trendPoint);
-        }
-
-
         private void UpdateTagsSignalR(TagInfo tag)
         {
 
@@ -277,7 +252,6 @@ namespace AppSCADA
             }
 
         }
-
         private void UpdateTagConnection(TagInfo tag, ControlData controldata)
         {
             if (ControlIsLoaded)
@@ -292,36 +266,6 @@ namespace AppSCADA
                 }
             }
 
-        }
-
-        private async void Trend_button_Clicked(object sender, EventArgs e)
-        {
-            ////await Navigation.PushAsync(new Page1());
-            //trendPage = new TrendPage();
-            ////trendPage.AlarmACK += AlarmPage_AlarmACK;
-            //trendPage.RequestCurrentTrendPoints(_hubProxy);
-            //await Navigation.PushAsync(trendPage);
-
-        }
-
-        private void AlarmPage_AlarmACK(object sender, AlarmPointACKEventArgs e)
-        {
-            //AckAlarmPointSignalR(e.AlarmPoint.Id);
-        }
-
-        private async void Alarm_button_Clicked(object sender, EventArgs e)
-        {
-            //alarmPage = new AlarmPage(alarmPoints);
-            //alarmPage.AlarmACK += AlarmPage_AlarmACK;
-            //await Navigation.PushAsync(alarmPage);
-
-        }
-
-        #region LoadPage
-        public void SetControlDatas(List<ControlData> controlDatas)
-        {
-            this.controlDatas = controlDatas;
-            AppSCADAController.Instance.TagUpdated += UpdateTagsSignalR;
         }
         #endregion
     }

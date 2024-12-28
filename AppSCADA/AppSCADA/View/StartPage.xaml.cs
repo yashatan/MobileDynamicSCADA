@@ -41,7 +41,7 @@ namespace AppSCADA
         {
             Device.BeginInvokeOnMainThread(async () => {
                 MainFlyOut mainFlyOut = new MainFlyOut();
-                mainFlyOut.Detail = new NavigationPage(App.PageList.FirstOrDefault(p => p.Id == AppSCADAProperties.SCADAAppConfiguration.MainPageId));
+                mainFlyOut.Detail = new NavigationPage(App.SCADAViewPageList.FirstOrDefault(p => p.Id == AppSCADAProperties.SCADAAppConfiguration.MainPageId));
                 App.CurrentPageId = AppSCADAProperties.SCADAAppConfiguration.MainPageId;
                 await Navigation.PushAsync(mainFlyOut);
             });

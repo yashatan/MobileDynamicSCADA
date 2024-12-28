@@ -20,13 +20,13 @@ using LiveChartsCore.Drawing;
 using LiveChartsCore.Measure;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
+using Newtonsoft.Json.Bson;
 
 namespace AppSCADA
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TrendPage : ContentPage
     {
-        ObservableCollection<AlarmPoint> alarmPoints;
         List<TrendViewSetting> trendviewsettingList;
         List<TagLoggingSetting> tagLoggingSettings;
         List<Tuple<int, ObservableCollection<DateTimePoint>>> TagloggingIdLinesMap;
@@ -36,23 +36,11 @@ namespace AppSCADA
             new DateTimeAxis(TimeSpan.FromSeconds(0.5), date => date.ToString("hh:mm:ss"))
         };
 
-
-
-        //ObservableCollection<TrendPoint> trendPoints;
-        //private static ObservableCollection<DateTimePoint> _values;
         public ObservableCollection<ISeries> Series { get; set; }
-        public TrendPage(ObservableCollection<AlarmPoint> palarmPoints)
-        {
-            InitializeComponent();
-            alarmPoints = palarmPoints;
-            //lvAlarm.ItemsSource = alarmPoints;
-            BindingContext = this;
-        }
 
         public TrendPage()
         {
             InitializeComponent();
-            alarmPoints = new ObservableCollection<AlarmPoint>();
             trendviewsettingList = AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings;
             tagLoggingSettings = AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings;
             TagloggingIdLinesMap = new List<Tuple<int, ObservableCollection<DateTimePoint>>>();
@@ -85,12 +73,10 @@ namespace AppSCADA
                 };
                 chart.Series = Chart_series;
                 chart.XAxes = xAxes;
-                //chart.S
                 var label = new LabelVisual();
                 label.Text = trendviewSetting.Name;
                 label.TextSize = 20;
                 label.Padding = new Padding(20);
-                //chart.ZoomMode = ZoomAndPanMode.X;
                 chart.Title = label;
                 PageStackLayout.Children.Add(chart);
             }
@@ -122,7 +108,6 @@ namespace AppSCADA
         public TrendPage(ObservableCollection<TrendPoint> trendPoints)
         {
             InitializeComponent();
-            alarmPoints = new ObservableCollection<AlarmPoint>();
             BindingContext = this;
         }
         public void AddNewTrendPoint(TrendPoint trendPoint)
@@ -141,12 +126,6 @@ namespace AppSCADA
         private async void GetTrendPointsSignalR(int tagloggingid, IHubProxy _hubProxy)
         {
             await _hubProxy.Invoke("GetTrendPoints", tagloggingid);
-        }
-
-
-        private void lvAlarm_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
         }
     }
 

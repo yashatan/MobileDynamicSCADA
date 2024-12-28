@@ -4,7 +4,7 @@
              xmlns:localVM="clr-namespace:AppSCADA.ViewModel"
              xmlns:local="clr-namespace:AppSCADA"
              Title="SCADA View Page"
-             x:Class="AppSCADA.MainPage">
+             x:Class="AppSCADA.SCADAViewPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <localVM:MotorImageConverter x:Key="MotorImageConverter"></localVM:MotorImageConverter>
