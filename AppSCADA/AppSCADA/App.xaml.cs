@@ -12,6 +12,7 @@ namespace AppSCADA
         public static TrendPage TrendPage {  get; set; } 
         public static List<SCADAViewPage> SCADAViewPageList { get; set; }
         public static int CurrentPageId;
+        public static MainFlyOut mainFlyOut;
         public App()
         {
             InitializeComponent();

@@ -109,11 +109,11 @@ namespace AppSCADA.Utility
                 {
                     foreach (var page in AppSCADAProperties.SCADAAppConfiguration.SCADAPages)
                     {
-                        SCADAViewPage mainPage = new SCADAViewPage();
-                        mainPage.SetControlDatas(page.ControlDatas);
-                        mainPage.Id = page.Id;
-                        mainPage.Name = page.Name;
-                        App.SCADAViewPageList.Add(mainPage);
+                        SCADAViewPage scadaViewPage = new SCADAViewPage();
+                        scadaViewPage.SetControlDatas(page.ControlDatas);
+                        scadaViewPage.Id = page.Id;
+                        scadaViewPage.Name = page.Name;
+                        App.SCADAViewPageList.Add(scadaViewPage);
                     }
                 }
                 if (AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints != null)

@@ -22,7 +22,8 @@ namespace AppSCADA.Utility
         {
             emSetbit,
             emResetBit,
-            emSetValue
+            emSetValue,
+            emOpenScreen
         }
         private string name;
         public int Value { get; set; }
@@ -35,6 +36,6 @@ namespace AppSCADA.Utility
         public ItemEventType EventType { get; set; }
         public ItemActiontype ActionType { get; set; }
         public virtual TagInfo Tag { get; set; }
-
+        public int PageID { get; set; }
     }
 }

@@ -72,13 +72,16 @@ namespace AppSCADA
                         buttoncontrol.Pressed += SCADAViewPagePressed;
                         buttoncontrol.Released += SCADAViewPageReleased;
                     }
+                    else
+                    {
+                        var tapGestureRecognizer = new TapGestureRecognizer();
+                        tapGestureRecognizer.Tapped += SCADAViewPagePressed;
+                        control.GestureRecognizers.Add(tapGestureRecognizer);
+                    }
                 }
             }
             ForceScrollViewToRefresh();
         }
-        #endregion
-
-        #region Item Event
         private async void SCADAViewPageAppearing(object sender, EventArgs e)
         {
             if ((!ControlIsLoaded))
@@ -88,7 +91,9 @@ namespace AppSCADA
                 await AppSCADAController.Instance.RequestCurrentTagValue();
             }
         }
+        #endregion
 
+        #region Item Event
         private async void SCADAViewPageReleased(object sender, EventArgs e)
         {
             ControlData controldata = controlDataDictionary.FirstOrDefault(p => p.Value.GetHashCode() == (sender as View).GetHashCode()).Key;
@@ -132,6 +137,16 @@ namespace AppSCADA
 
                         }
 
+                    }
+                    else if (itemevent.ActionType == ItemEvent.ItemActiontype.emOpenScreen)
+                    {
+                        SCADAViewPage page = App.SCADAViewPageList.FirstOrDefault(p => p.Id == itemevent.PageID);
+                        if ( page != null)
+                        {
+                            App.CurrentPageId = page.Id;
+                            //await Shell.Current.GoToAsync(page);
+                            App.mainFlyOut.Detail = new NavigationPage(page);
+                        }
                     }
                 }
             }
