@@ -47,6 +47,14 @@ namespace AppSCADA
                 IsPresented = false;
                 FlyoutPage.ListView.SelectedItem = null;
             }
+            else if (item.TargetType == typeof(TagLoggingPage))
+            {
+                TagLoggingPage page = App.TagLoggingPage;
+                page.Title = item.Title;
+                Detail = new NavigationPage(page);
+                IsPresented = false;
+                FlyoutPage.ListView.SelectedItem = null;
+            }
             else
             {
                 var page = (Page)Activator.CreateInstance(item.TargetType);

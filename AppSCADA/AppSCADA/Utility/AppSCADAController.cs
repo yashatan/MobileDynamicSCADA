@@ -61,6 +61,7 @@ namespace AppSCADA.Utility
             _hubProxy.On<int>("ACKAlarmPoint", (alarmPointId) => ReceiveACKAlarmPointSignalR(alarmPointId));
             _hubProxy.On<TrendPoint>("WriteTrendPoint", (trendPoint) => ReceiveTrendPointSignalR(trendPoint));
             _hubProxy.On<List<TrendPoint>>("WriteCurrentTrendPoints", (trendPoints) => ReceiveCurrentTrendPointsSignalR(trendPoints));
+            _hubProxy.On<List<TrendPoint>>("WriteQueryTagLoggingDatas", (tagLoggingDatas) => ReceiveQueryTagLoggingSignalR(tagLoggingDatas));
             using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
             {
                 try
@@ -85,6 +86,14 @@ namespace AppSCADA.Utility
             }
         }
 
+        private void ReceiveQueryTagLoggingSignalR(List<TrendPoint> tagLoggingDatas)
+        {
+            App.TagLoggingPage.SetTagLoggingDatas(tagLoggingDatas);
+        }
+        public void RequestTagLoggingData(int tagloggingid, DateTime beginDate, DateTime endDate)
+        {
+            _hubProxy.Invoke("GetTagLoggingData", tagloggingid, beginDate, endDate);
+        }
         private void HubConnection_StateChanged(StateChange obj)
         {
             if (obj.NewState == Microsoft.AspNet.SignalR.Client.ConnectionState.Connected)
@@ -99,7 +108,7 @@ namespace AppSCADA.Utility
             TagUpdated?.Invoke(tag);
         }
 
-        private async void GetSCADAConfig(SCADAAppConfiguration config)
+        private void GetSCADAConfig(SCADAAppConfiguration config)
         {
             AppSCADAProperties.SCADAAppConfiguration = config;
             AppSCADAProperties.TrendLimitPoints = 80;
@@ -128,6 +137,10 @@ namespace AppSCADA.Utility
                 if(AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null && AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
                 {
                     App.TrendPage = new TrendPage();
+                }
+                if (AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
+                {
+                    App.TagLoggingPage = new TagLoggingPage();
                 }
 
                 OnLoadedConfiguration();

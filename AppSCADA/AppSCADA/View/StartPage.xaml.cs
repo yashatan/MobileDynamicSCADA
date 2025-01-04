@@ -16,13 +16,13 @@ namespace AppSCADA
         public StartPage()
         {
             InitializeComponent();
+            AppSCADAController.Instance.LoadedConfiguration += Instance_LoadedConfiguration;
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
             (sender as Button).IsEnabled = false;
             AppSCADAController.Instance.serverURL = txtSeverurl.Text;
-            AppSCADAController.Instance.LoadedConfiguration += Instance_LoadedConfiguration;
             LoadingCircle.IsRunning = true;
             bool ConnectResult = await AppSCADAController.Instance.connectAsync();
             if (ConnectResult)

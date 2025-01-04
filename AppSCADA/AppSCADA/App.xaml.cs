@@ -10,6 +10,7 @@ namespace AppSCADA
         public static SCADAViewPage mainPage {  get; private set; } 
         public static AlarmPage AlarmPage {  get; set; } 
         public static TrendPage TrendPage {  get; set; } 
+        public static TagLoggingPage TagLoggingPage {  get; set; } 
         public static List<SCADAViewPage> SCADAViewPageList { get; set; }
         public static int CurrentPageId;
         public static MainFlyOut mainFlyOut;

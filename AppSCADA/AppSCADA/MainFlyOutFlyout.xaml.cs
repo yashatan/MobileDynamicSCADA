@@ -36,6 +36,7 @@ namespace AppSCADA
                     new MainFlyOutFlyoutMenuItem { Id = 0, Title = "SCADA View Page" , TargetType=typeof(SCADAViewPage)},
                     new MainFlyOutFlyoutMenuItem { Id = 1, Title = "Alarm Page", TargetType=typeof(AlarmPage)},
                     new MainFlyOutFlyoutMenuItem { Id = 2, Title = "Trend Page", TargetType=typeof(TrendPage)},
+                    new MainFlyOutFlyoutMenuItem { Id = 3, Title = "Tag Logging Page", TargetType=typeof(TagLoggingPage)},
                 });
             }
 

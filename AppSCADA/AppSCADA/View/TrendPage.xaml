@@ -4,46 +4,7 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Xamarin.Forms;assembly=LiveChartsCore.SkiaSharpView.XamarinForms"
              x:Class="AppSCADA.TrendPage">
     <ScrollView Orientation="Vertical"
-                
                 x:Name="scrollViewMain">
-        <StackLayout x:Name="PageStackLayout">
-            <!--<lvc:CartesianChart x:Name="TrendChart"
-                            HeightRequest="200"
-                            WidthRequest="200">
-            <lvc:CartesianChart.Title>
-                <Label Text="Biểu đồ của tôi"
-                           FontSize="18" />
-            </lvc:CartesianChart.Title>
-        </lvc:CartesianChart>
-        <Label Text="Welcome to Xamarin.Forms!">
-            
-        </Label>-->
-            <!--<Button Clicked="Button_Clicked_1">
-            
-        </Button>-->
-        </StackLayout>
+        <StackLayout x:Name="PageStackLayout"></StackLayout>
     </ScrollView>
-
-
-
-        <!--<Label 
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand" />
-        <ListView x:Name="lvAlarm">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Id}"></Label>
-                            <Label Text="{Binding Name}"></Label>
-                            <Label Text="{Binding Text}"></Label>
-                            <Label Text="{Binding TimeStamp}"></Label>
-                            <Button Text="ACK"
-                                    Clicked="Button_Clicked"></Button>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
 </ContentPage>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSCADA.TagLoggingPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Picker x:Name="TagLoggingPicker"
+                    Grid.Row="0"
+                    ItemDisplayBinding="{Binding Name}"
+                    Margin="15"
+                    Title="Select a tag"></Picker>
+            <StackLayout Orientation="Horizontal"
+                         Grid.Row="1"
+                         VerticalOptions="StartAndExpand"
+                         HorizontalOptions="StartAndExpand"
+                         Margin="5,0,0,0">
+                <Label Text="From:"
+                       FontSize="15"
+                       Margin="0,10,0,0"
+                       VerticalOptions="StartAndExpand"></Label>
+                <DatePicker FontSize="15"
+                            WidthRequest="85"
+                            x:Name="BeginDatePicker"
+                            VerticalOptions="Start"></DatePicker>
+                <TimePicker FontSize="15"
+                            x:Name="BeginTimePicker"
+                            VerticalOptions="Start"></TimePicker>
+                <Label Text="To:"
+                       FontSize="15"
+                       Margin="5,10,0,0"
+                       VerticalOptions="StartAndExpand"></Label>
+                <DatePicker FontSize="15"
+                            x:Name="EndDatePicker"
+                            WidthRequest="85"
+                            VerticalOptions="Start"></DatePicker>
+                <TimePicker FontSize="15"
+                            x:Name="EndTimePicker"
+                            VerticalOptions="Start"></TimePicker>
+            </StackLayout>
+            <Grid Grid.Row="2">
+
+                <Button HorizontalOptions="StartAndExpand"
+                        WidthRequest="100"
+                        Margin="30,10,20,10"
+                        Text="Get Data"
+                        TextColor="White"
+                        Clicked="btnGetData_Clicked"
+                        BackgroundColor="Blue"></Button>
+                <Button HorizontalOptions="EndAndExpand"
+                        WidthRequest="100"
+                        Margin="0,10,30,10"
+                        Text="Clear Data"
+                        TextColor="White"
+                        Clicked="btnClearData_Clicked"
+                        BackgroundColor="Blue"></Button>
+            </Grid>
+
+            <ScrollView Grid.Row="3">
+                <ListView x:Name="lvData">
+                    <ListView.Header>
+                        <Grid BackgroundColor="WhiteSmoke"
+                              Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Value"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold" />
+                            <Label Text="Time Stamp"
+                                   Grid.Column="1"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Value}"
+                                           HorizontalOptions="Center"
+                                           Grid.Column="0" />
+                                    <Label Text="{Binding TimeStamp}"
+                                           HorizontalOptions="Center"
+                                           Grid.Column="1" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
