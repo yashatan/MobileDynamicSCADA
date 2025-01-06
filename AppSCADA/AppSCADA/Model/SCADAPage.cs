@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppSCADA.Utility;
+using static AppSCADA.TagInfo;
 
 namespace AppSCADA
 {
-    public class SCADAPage
+    public class SCADAPage : BaseSCADAPage
     {
         public List<ControlData> ControlDatas { get; set; }
         public SCADAPage()
         {
         }
-        public int Id { get; set; }
-        public int PageType { get; set; }
-        public string Name { get; set; }
+        public SCADAPage(string name)
+        {
+            Name = name;
+            PageType = 0;
+        }
     }
 }
