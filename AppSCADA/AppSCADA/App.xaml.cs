@@ -12,6 +12,7 @@ namespace AppSCADA
         public static TrendPage TrendPage {  get; set; } 
         public static TagLoggingPage TagLoggingPage {  get; set; } 
         public static List<SCADAViewPage> SCADAViewPageList { get; set; }
+        public static List<TableViewPage> TableViewPageList { get; set; }
         public static int CurrentPageId;
         public static MainFlyOut mainFlyOut;
         public App()
@@ -21,6 +22,7 @@ namespace AppSCADA
             //MainPage = new NavigationPage(new MainPage());
             //NavigationPage StartPage;
             SCADAViewPageList = new List<SCADAViewPage>();
+            TableViewPageList = new List<TableViewPage>();
             MainPage = new NavigationPage(new StartPage());
         }
 

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:localVM="clr-namespace:AppSCADA.ViewModel"
+             xmlns:local="clr-namespace:AppSCADA"
+             Title="SCADA View Page"
+             x:Class="AppSCADA.SCADAViewPage">
+    <ContentPage.Resources>
+        <!--<ResourceDictionary>
+            <localVM:MotorImageConverter x:Key="MotorImageConverter"></localVM:MotorImageConverter>
+            <localVM:LevelProgressConverter x:Key="LevelProgressConverter"></localVM:LevelProgressConverter>
+            <localVM:StatusConverter x:Key="StatusConverter"></localVM:StatusConverter>
+        </ResourceDictionary>-->
+    </ContentPage.Resources>
+    
+    <ScrollView Orientation="Both" x:Name="scrollViewMain" >
+        <StackLayout>
+            <AbsoluteLayout x:Name="MainScreen"></AbsoluteLayout>
+        </StackLayout>
+
+    </ScrollView>
+
+
+</ContentPage>

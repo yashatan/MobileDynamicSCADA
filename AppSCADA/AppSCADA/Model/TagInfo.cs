@@ -11,8 +11,10 @@ namespace AppSCADA
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
 
-    public partial class TagInfo
+    public partial class TagInfo : INotifyPropertyChanged
     {
         public TagInfo()
         {
@@ -106,7 +108,14 @@ namespace AppSCADA
                 }
             }
         }
-        public long Data { get; set; }
+        private long data;
+        public long Data { get => data; set { data = value; OnPropertyChanged(nameof(Value)); } }
         public virtual ConnectDevice ConnectDevice { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

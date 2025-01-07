@@ -108,44 +108,56 @@ namespace AppSCADA.Utility
             TagUpdated?.Invoke(tag);
         }
 
-        private void GetSCADAConfig(SCADAAppConfiguration config)
+        private async void GetSCADAConfig(SCADAAppConfiguration config)
         {
             AppSCADAProperties.SCADAAppConfiguration = config;
             AppSCADAProperties.TrendLimitPoints = 80;
-            if (AppSCADAProperties.SCADAAppConfiguration != null)
+            await Task.Run(() =>
             {
-                if (AppSCADAProperties.SCADAAppConfiguration.SCADAPages != null)
+                if (AppSCADAProperties.SCADAAppConfiguration != null)
                 {
-                    foreach (var page in AppSCADAProperties.SCADAAppConfiguration.SCADAPages)
+                    if (AppSCADAProperties.SCADAAppConfiguration.SCADAPages != null)
                     {
-                        SCADAViewPage scadaViewPage = new SCADAViewPage();
-                        scadaViewPage.SetControlDatas(page.ControlDatas);
-                        scadaViewPage.Id = page.Id;
-                        scadaViewPage.Name = page.Name;
-                        App.SCADAViewPageList.Add(scadaViewPage);
+                        foreach (var page in AppSCADAProperties.SCADAAppConfiguration.SCADAPages)
+                        {
+                            SCADAViewPage scadaViewPage = new SCADAViewPage();
+                            scadaViewPage.SetControlDatas(page.ControlDatas);
+                            scadaViewPage.Id = page.Id;
+                            scadaViewPage.Name = page.Name;
+                            scadaViewPage.PageType = page.PageType;
+                            App.SCADAViewPageList.Add(scadaViewPage);
+                        }
+
                     }
-                }
-                if (AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints != null)
-                {
-                    foreach (var alarmPoint in AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints)
+                    if (AppSCADAProperties.SCADAAppConfiguration.TablePages != null)
                     {
-                        alarmPoints.Add(alarmPoint);
+                        foreach (var page in AppSCADAProperties.SCADAAppConfiguration.TablePages)
+                        {
+                            TableViewPage tableViewPage = new TableViewPage(page);
+                            App.TableViewPageList.Add(tableViewPage);
+                        }
                     }
-                    App.AlarmPage = new AlarmPage(alarmPoints);
-                    App.AlarmPage.AlarmACK += AlarmPage_AlarmACK;
-                }
-                if(AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null && AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
-                {
-                    App.TrendPage = new TrendPage();
-                }
-                if (AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
-                {
-                    App.TagLoggingPage = new TagLoggingPage();
-                }
+                    if (AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints != null)
+                    {
+                        foreach (var alarmPoint in AppSCADAProperties.SCADAAppConfiguration.CurrentAlarmPoints)
+                        {
+                            alarmPoints.Add(alarmPoint);
+                        }
+                        App.AlarmPage = new AlarmPage(alarmPoints);
+                        App.AlarmPage.AlarmACK += AlarmPage_AlarmACK;
+                    }
+                    if (AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null && AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
+                    {
+                        App.TrendPage = new TrendPage();
+                    }
+                    if (AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
+                    {
+                        App.TagLoggingPage = new TagLoggingPage();
+                    }
 
-                OnLoadedConfiguration();
-            }
-
+                    OnLoadedConfiguration();
+                }
+            });
         }
 
         public async Task RequestCurrentTagValue()

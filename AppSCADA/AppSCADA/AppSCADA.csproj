@@ -41,9 +41,6 @@
 
 
   <ItemGroup>
-    <EmbeddedResource Include="controldata.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="image\01_logobachkhoasang.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -158,31 +155,34 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="UserView\SCADAViewPage.xaml.cs">
+      <DependentUpon>SCADAViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="View\TrendPage.xaml.cs">
       <DependentUpon>TrendPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="FacePlate.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="FlyoutPage1Detail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainFlyOut.xaml">
+    <EmbeddedResource Update="UserView\MainFlyOut.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainFlyOutDetail.xaml">
+    <EmbeddedResource Update="UserView\MainFlyOutDetail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainFlyOutFlyout.xaml">
+    <EmbeddedResource Update="UserView\MainFlyOutFlyout.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\AlarmPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\StartPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\TableViewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\TagLoggingPage.xaml">

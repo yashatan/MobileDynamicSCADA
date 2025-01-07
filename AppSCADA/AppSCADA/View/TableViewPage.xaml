@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSCADA.TableViewPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Text="{Binding Name}"
+                   FontSize="20"
+                   Margin="20"
+                   FontAttributes="Bold"
+                   Grid.Row="0"></Label>
+            <ScrollView Grid.Row="1">
+                <ListView x:Name="lvTags"
+                          RowHeight="80">
+                    <ListView.Header>
+                        <Grid BackgroundColor="WhiteSmoke"
+                              Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="TagName"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold" />
+                            <Label Text="Device"
+                                   Grid.Column="1"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold" />
+                            <Label Text="Address"
+                                   Grid.Column="2"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold" />
+                            <Label Text="Value"
+                                   Grid.Column="3"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Name}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Grid.Column="0" />
+                                    <Label Text="{Binding ConnectDevice.Name}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Grid.Column="1" />
+                                    <Label Text="{Binding MemoryAddress}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Grid.Column="2" />
+                                    <!--<Label Text="{Binding Value}"
+                                           HorizontalOptions="Center"
+                                           HeightRequest="20"
+                                           Grid.Column="3" />-->
+                                    <Entry Text="{Binding Value}"
+                                           Grid.Column="3"
+                                           Unfocused="Entry_Unfocused"
+                                           HorizontalOptions="Fill"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

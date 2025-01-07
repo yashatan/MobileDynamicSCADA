@@ -1,5 +1,4 @@
-﻿using AppSCADA.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +41,7 @@ namespace AppSCADA.Utility
                     break;
                 case "TextBox":
                     control = new Entry();
+                    (control as Entry).Keyboard = Keyboard.Numeric;
                     break;
                 default: throw new ArgumentException();
             }

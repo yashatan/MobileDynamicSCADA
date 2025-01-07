@@ -39,6 +39,12 @@ namespace AppSCADA
             get { return scadaPages; }
             set { scadaPages = value; }
         }
+        List<TablePage> tablePages;
+        public List<TablePage> TablePages
+        {
+            get { return tablePages; }
+            set { tablePages = value; }
+        }
         public SCADAAppConfiguration()
         {
         }
