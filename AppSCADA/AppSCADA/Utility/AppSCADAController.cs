@@ -85,6 +85,16 @@ namespace AppSCADA.Utility
                 }
             }
         }
+        public void Disconnect()
+        {
+            if (_signalRConnection != null)
+            {
+                _signalRConnection.Stop();
+                _signalRConnection.Dispose();
+                _signalRConnection = null;
+            }
+        }
+
 
         private void ReceiveQueryTagLoggingSignalR(List<TrendPoint> tagLoggingDatas)
         {

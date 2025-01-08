@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppSCADA.Utility;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -54,6 +55,9 @@ namespace AppSCADA
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            AppSCADAController.Instance.Disconnect();
+            App.SCADAViewPageList.Clear();
+            App.TableViewPageList.Clear();
             await Navigation.PopToRootAsync();
         }
     }

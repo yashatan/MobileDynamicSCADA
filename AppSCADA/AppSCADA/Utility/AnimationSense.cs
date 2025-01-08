@@ -26,17 +26,17 @@ namespace AppSCADA.Utility
             set { _PropertyNeedChange = value; }
         }
 
-        private int _Tagvaluemin;
+        private double _Tagvaluemin;
 
-        public int Tagvaluemin
+        public double Tagvaluemin
         {
             get { return _Tagvaluemin; }
             set { _Tagvaluemin = value; }
         }
 
-        private int _Tagvaluemax;
+        private double _Tagvaluemax;
 
-        public int Tagvaluemax
+        public double Tagvaluemax
         {
             get { return _Tagvaluemax; }
             set { _Tagvaluemax = value; }
@@ -88,6 +88,7 @@ namespace AppSCADA.Utility
             emBackgroundColor,
             emHeight,
             emWidth,
+            emIsEnable,
             emText
         }
         public AnimationSense()

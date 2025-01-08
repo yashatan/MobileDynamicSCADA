@@ -131,6 +131,14 @@ namespace AppSCADA
             var TagValue = (sender as Entry).Text;
             long datatowritelong;
             double datatowritedouble;
+            if(controldata == null)
+            {
+                return;
+            }
+            if (controldata.TagConnection == null)
+            {
+                return ;
+            }
             if (controldata.TagConnection.Value != TagValue)
             {
                 if (long.TryParse(TagValue, out datatowritelong))
@@ -197,34 +205,6 @@ namespace AppSCADA
         #endregion
 
         #region AnimationSense
-        private void UpdateItemColor(View item, ColorRGB colorWhenTagInRange)
-        {
-            if (item.GetType().IsSubclassOf(typeof(Shape)))
-            {
-                (item as Shape).Fill = new SolidColorBrush(Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B));
-            }
-            else if (item.GetType() == (typeof(Button)))
-            {
-                (item as Button).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
-            }
-            else if (item.GetType() == (typeof(Entry)))
-            {
-                (item as Entry).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
-            }
-            else if (item.GetType() == (typeof(Label)))
-            {
-                (item as Label).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
-            }
-        }
-
-        private void UpdateItemVisible(View item, bool propertyBoolValueWhenTagInRange)
-        {
-            if (item != null)
-            {
-                item.IsVisible = propertyBoolValueWhenTagInRange;
-            }
-        }
-
         private void UpdateMainScreenSize(ControlData controldata)
         {
             if (MainScreen.Height < controldata.Y + controldata.Height)
@@ -271,24 +251,25 @@ namespace AppSCADA
                 {
                     foreach (AnimationSense animation in animations)
                     {
-                        int value = 0;
-                        if (tag.Type == TagInfo.TagType.eReal)
-                        {
-                            var temp = Convert.ToSingle(tag.Value);
-                            value = Convert.ToInt32(temp);
-                        }
-                        else if (tag.Type == TagInfo.TagType.eDouble)
-                        {
-                            var temp = Convert.ToDouble(tag.Value);
-                            value = Convert.ToInt32(temp);
+                        double value = 0;
+                        value = Convert.ToDouble(tag.Value);
+                        //if (tag.Type == TagInfo.TagType.eReal)
+                        //{
+                        //    var temp = Convert.ToDouble(tag.Value);
+                        //    value = Convert.ToDouble(temp);
+                        //}
+                        //else if (tag.Type == TagInfo.TagType.eDouble)
+                        //{
+                        //    var temp = Convert.ToDouble(tag.Value);
+                        //    value = Convert.ToDouble(temp);
 
-                        }
-                        else
-                        {
-                            value = Convert.ToInt32(tag.Value);
-                        }
+                        //}
+                        //else
+                        //{
+                        //    value = Convert.ToInt32(tag.Value);
+                        //}
 
-                        if (value <= animation.Tagvaluemin && value >= animation.Tagvaluemax)
+                        if (value <= animation.Tagvaluemax && value >= animation.Tagvaluemin)
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
@@ -300,6 +281,18 @@ namespace AppSCADA
                                     case AnimationSense.PropertyType.emBackgroundColor:
                                         UpdateItemColor(controlDataDictionary[controldata], animation.ColorWhenTagInRange);
                                         break;
+                                    case AnimationSense.PropertyType.emHeight:
+                                        UpdateItemSize(controlDataDictionary[controldata], animation.PropertyValueWhenTagInRange, false);
+                                        break;
+                                    case AnimationSense.PropertyType.emWidth:
+                                        UpdateItemSize(controlDataDictionary[controldata], animation.PropertyValueWhenTagInRange, true);
+                                        break;
+                                    case AnimationSense.PropertyType.emIsEnable:
+                                        UpdateItemEnable(controlDataDictionary[controldata], animation.PropertyBoolValueWhenTagInRange);
+                                        break;
+                                    case AnimationSense.PropertyType.emText:
+                                        UpdateItemText(controlDataDictionary[controldata], animation.TextWhenTagInRange);
+                                        break;
                                     default: throw new ArgumentException();
                                 }
                             });
@@ -309,6 +302,65 @@ namespace AppSCADA
                 }
             }
 
+        }
+        private void UpdateItemColor(View item, ColorRGB colorWhenTagInRange)
+        {
+            if (item.GetType().IsSubclassOf(typeof(Shape)))
+            {
+                (item as Shape).Fill = new SolidColorBrush(Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B));
+            }
+            else if (item.GetType() == (typeof(Button)))
+            {
+                (item as Button).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+            }
+            else if (item.GetType() == (typeof(Entry)))
+            {
+                (item as Entry).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+            }
+            else if (item.GetType() == (typeof(Label)))
+            {
+                (item as Label).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+            }
+        }
+
+        private void UpdateItemVisible(View item, bool propertyBoolValueWhenTagInRange)
+        {
+            if (item != null)
+            {
+                item.IsVisible = propertyBoolValueWhenTagInRange;
+            }
+        }
+        private void UpdateItemSize(View item, int propertyValueWhenTagInRange, bool isWidth)
+        {
+            if (item != null)
+            {
+                if (isWidth)
+                {
+                    item.WidthRequest = propertyValueWhenTagInRange;
+                }
+                else
+                {
+                    item.HeightRequest = propertyValueWhenTagInRange;
+                }
+            }
+        }
+        private void UpdateItemEnable(View item, bool propertyBoolValueWhenTagInRange)
+        {
+            if (item != null)
+            {
+                item.IsEnabled = propertyBoolValueWhenTagInRange;
+            }
+        }
+
+        private void UpdateItemText(View item, string textWhenTagInRange)
+        {
+            if (item != null)
+            {
+                if (item.GetType() == (typeof(Label)))
+                {
+                    (item as Label).Text = textWhenTagInRange;
+                }
+            }
         }
         private void UpdateTagConnection(TagInfo tag, ControlData controldata)
         {

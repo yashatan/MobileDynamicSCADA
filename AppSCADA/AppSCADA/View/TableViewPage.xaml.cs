@@ -40,7 +40,6 @@ namespace AppSCADA
             }
             lvTags.ItemsSource = tagInfos;
             BindingContext = this;
-            AppSCADAController.Instance.TagUpdated += UpdateTagsSignalR;
         }
 
         private void MappingTag()
@@ -57,17 +56,6 @@ namespace AppSCADA
                     TablePageSetting.Tags.RemoveAt(i);
                 }
             }
-        }
-
-        private void UpdateTagsSignalR(TagInfo tag)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                //if (tagInfos.Any(t => t.Id == tag.Id))
-                //{
-                //    tagInfos.FirstOrDefault(t => t.Id == tag.Id).Value = tag.Value;
-                //}
-            });
         }
 
         private async void Entry_Unfocused(object sender, FocusEventArgs e)
