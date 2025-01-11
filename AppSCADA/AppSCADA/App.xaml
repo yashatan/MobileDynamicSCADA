@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppSCADA.App">
     <Application.Resources>
-
+        <OnPlatform x:Key="MaterialFontFamily"
+                    x:TypeArguments="x:String">
+            <On Platform="iOS"
+                Value="Font Awesome 6 Free" />
+            <On Platform="Android"
+                Value="fa-solid-900.ttf#Font Awesome 6 Free" />
+        </OnPlatform>
     </Application.Resources>
 </Application>

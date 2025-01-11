@@ -131,13 +131,13 @@ namespace AppSCADA
             var TagValue = (sender as Entry).Text;
             long datatowritelong;
             double datatowritedouble;
-            if(controldata == null)
+            if (controldata == null)
             {
                 return;
             }
             if (controldata.TagConnection == null)
             {
-                return ;
+                return;
             }
             if (controldata.TagConnection.Value != TagValue)
             {
@@ -321,8 +321,14 @@ namespace AppSCADA
             {
                 (item as Label).BackgroundColor = Xamarin.Forms.Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
             }
+            else if (item.GetType() == (typeof(Image)))
+            {
+                if ((item as Image).Source is FontImageSource fontImageSource)
+                {
+                    fontImageSource.Color = Color.FromRgb(colorWhenTagInRange.R, colorWhenTagInRange.G, colorWhenTagInRange.B);
+                }
+            }
         }
-
         private void UpdateItemVisible(View item, bool propertyBoolValueWhenTagInRange)
         {
             if (item != null)

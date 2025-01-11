@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Background="White"
+             xmlns:local="clr-namespace:AppSCADA"
              x:Class="AppSCADA.StartPage">
     <ContentPage.Content>
         <Grid>
@@ -35,7 +36,7 @@
                         BorderWidth="1.5"
                         BorderColor="White"
                         CornerRadius="50"
-                        IsEnabled ="True"
+                        IsEnabled="True"
                         Clicked="Button_Clicked"
                         BackgroundColor="Blue"></Button>
             </StackLayout>
