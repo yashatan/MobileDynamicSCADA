@@ -243,6 +243,38 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\logobachkhoasang.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\logobachkhoasang.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Boiler8.png" />
+    <AndroidResource Include="Resources\drawable\Boilerwithflames.png" />
+    <AndroidResource Include="Resources\drawable\BringToFront.png" />
+    <AndroidResource Include="Resources\drawable\Commercialbuilding1.png" />
+    <AndroidResource Include="Resources\drawable\Extendedpusher1.png" />
+    <AndroidResource Include="Resources\drawable\Factory5.png" />
+    <AndroidResource Include="Resources\drawable\Horizontalconveyorwithperspective.png" />
+    <AndroidResource Include="Resources\drawable\Horizontalpump2.png" />
+    <AndroidResource Include="Resources\drawable\Horizontalpump2right.png" />
+    <AndroidResource Include="Resources\drawable\Mixerblade.png" />
+    <AndroidResource Include="Resources\drawable\Mixerblade_green.png" />
+    <AndroidResource Include="Resources\drawable\plc.png" />
+    <AndroidResource Include="Resources\drawable\Retractedpusher1.png" />
+    <AndroidResource Include="Resources\drawable\SendToBack.png" />
+    <AndroidResource Include="Resources\drawable\tag.png" />
+    <AndroidResource Include="Resources\drawable\Tank36.png" />
+    <AndroidResource Include="Resources\drawable\Tank6.png" />
+    <AndroidResource Include="Resources\drawable\Tank6_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\I3Dredbuttonpressed.png" />
+    <AndroidResource Include="Resources\drawable\I3Dredbutton_notpressed.png" />
+    <AndroidResource Include="Resources\drawable\I90curve1.png" />
+    <AndroidResource Include="Resources\drawable\I90curve2.png" />
+    <AndroidResource Include="Resources\drawable\I90curve3.png" />
+    <AndroidResource Include="Resources\drawable\I90curve4.png" />
+    <AndroidResource Include="Resources\drawable\I3DValvewithlongshaft.png" />
+    <AndroidResource Include="Resources\drawable\I3DValvewithlongshaft_green.png" />
+    <Content Include="Resources\drawable\Shorthorizontalflexibletubing.png" />
+    <Content Include="Resources\drawable\Simplehorizontalconveyor.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

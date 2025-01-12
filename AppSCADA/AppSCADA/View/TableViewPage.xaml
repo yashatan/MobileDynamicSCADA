@@ -70,8 +70,9 @@
                                            HorizontalOptions="Center"
                                            HeightRequest="20"
                                            Grid.Column="3" />-->
-                                    <Entry Text="{Binding Value}"
+                                    <Entry Text="{Binding Value, Mode=OneWay}"
                                            Grid.Column="3"
+                                           Keyboard="Numeric"
                                            Unfocused="Entry_Unfocused"
                                            HorizontalOptions="Fill"
                                            VerticalOptions="Center" />

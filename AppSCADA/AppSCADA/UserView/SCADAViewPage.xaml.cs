@@ -231,10 +231,10 @@ namespace AppSCADA
                     UpdateAnimation(tag, controldata);
                 }
             }
-            controldatas = controlDatas.Where(p => ((p.TagConnection != null) && (p.TagConnection.Id == tag.Id))).ToList();
-            if (controldatas.Any())
+            var controldatas_tagconnection = controlDatas.Where(p => ((p.TagConnection != null) && (p.TagConnection.Id == tag.Id))).ToList();
+            if (controldatas_tagconnection.Any())
             {
-                foreach (var controldata in controldatas)
+                foreach (var controldata in controldatas_tagconnection)
                 {
                     UpdateTagConnection(tag, controldata);
                 }
@@ -378,6 +378,10 @@ namespace AppSCADA
                     {
                         //item.IsVisible = false;
                         controldata.TagConnection.Data = tag.Data;
+                        if ((controlDataDictionary[controldata] as Entry).IsFocused)
+                        {
+                            return;
+                        }
                         (controlDataDictionary[controldata] as Entry).Text = tag.Value;
                     });
                 }

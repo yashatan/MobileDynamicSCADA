@@ -21,11 +21,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="10" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="1"
-                           Grid.Row="2"
-                           Text="Demo SCADA"
-                           TextColor="White"
-                           Style="{DynamicResource SubtitleStyle}" />
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>

@@ -37,7 +37,10 @@ namespace AppSCADA
         };
 
         public ObservableCollection<ISeries> Series { get; set; }
-
+        public TrendPage(bool dummyctor)
+        {
+            InitializeComponent();
+        }
         public TrendPage()
         {
             InitializeComponent();

@@ -55,7 +55,14 @@ namespace AppSCADA
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            AppSCADAController.Instance.Disconnect();
+            try
+            {
+                AppSCADAController.Instance.Disconnect();
+            }
+            catch
+            {
+
+            }
             App.SCADAViewPageList.Clear();
             App.TableViewPageList.Clear();
             await Navigation.PopToRootAsync();

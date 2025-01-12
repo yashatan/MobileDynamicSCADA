@@ -21,6 +21,8 @@ namespace AppSCADA
 
             //MainPage = new NavigationPage(new MainPage());
             //NavigationPage StartPage;
+            AlarmPage = new AlarmPage();
+            TrendPage = new TrendPage(false);
             SCADAViewPageList = new List<SCADAViewPage>();
             TableViewPageList = new List<TableViewPage>();
             MainPage = new NavigationPage(new StartPage());

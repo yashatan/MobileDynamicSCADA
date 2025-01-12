@@ -73,7 +73,7 @@ namespace AppSCADA.Utility
                         await connectTask;
                         await _hubProxy.Invoke("SetUserName", DeviceInfo.Name);
                         return true;
-                    }
+        }
                     else
                     {
                         return false;
@@ -153,9 +153,10 @@ namespace AppSCADA.Utility
                         {
                             alarmPoints.Add(alarmPoint);
                         }
-                        App.AlarmPage = new AlarmPage(alarmPoints);
-                        App.AlarmPage.AlarmACK += AlarmPage_AlarmACK;
+
                     }
+                    App.AlarmPage = new AlarmPage(alarmPoints);
+                    App.AlarmPage.AlarmACK += AlarmPage_AlarmACK;
                     if (AppSCADAProperties.SCADAAppConfiguration.TrendViewSettings != null && AppSCADAProperties.SCADAAppConfiguration.TagLoggingSettings != null)
                     {
                         App.TrendPage = new TrendPage();

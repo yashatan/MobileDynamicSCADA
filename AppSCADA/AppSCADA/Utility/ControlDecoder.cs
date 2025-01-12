@@ -75,6 +75,7 @@ namespace AppSCADA.Utility
             if (control.GetType() == typeof(Button))
             {
                 (control as Button).Text = data.LabelText;
+                (control as Button).TextTransform = TextTransform.None;
                 (control as Button).FontSize = data.FontSize;
                 (control as Button).TextColor = Color.FromRgb(data.ForegroundColor.R, data.ForegroundColor.G, data.ForegroundColor.B);
                 (control as Button).BackgroundColor = Color.FromRgb(data.BackgroundColor.R, data.BackgroundColor.G, data.BackgroundColor.B);
@@ -95,6 +96,10 @@ namespace AppSCADA.Utility
                 (control as Entry).Keyboard = Keyboard.Numeric;
                 (control as Entry).Text = data.LabelText;
                 (control as Entry).FontSize = data.FontSize;
+            }
+            if(data.Rotation!= 0)
+            {
+                control.Rotation = data.Rotation;
             }
             return control;
             //control.GetHashCode();
